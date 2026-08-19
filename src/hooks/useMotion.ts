@@ -27,19 +27,64 @@ export function useMotion() {
     const ctx = gsap.context(() => {
       const temMouse = matchMedia('(pointer:fine)').matches;
 
-      /* ---------- abertura: a marca se formando ---------- */
+      /* ---------- abertura: as letras se montando ----------
+         Cada letra e um recorte da logo verdadeira. Elas chegam de
+         pontos diferentes da tela, giradas e desfocadas, e vao
+         assentando na posicao ate remontar a palavra. */
       document.documentElement.classList.add('carregando');
 
-      gsap
-        .timeline()
-        .to('.abertura .anel', { rotate: 360, duration: 1.1, ease: 'power2.inOut', repeat: -1 }, 0)
-        .fromTo(
-          '.abertura .selo img',
-          { opacity: 0, scale: 0.55, rotate: -25 },
-          { opacity: 1, scale: 1, rotate: 0, duration: 0.9, ease: 'expo.out' },
-          0.1,
-        )
-        .from('.abertura .legenda', { opacity: 0, y: 10, duration: 0.5 }, 0.5);
+      const letras = gsap.utils.toArray<HTMLElement>('.palavra-letras .letra');
+      const dourada = letras[4]; // o M do meio: assenta por ultimo
+
+      if (letras.length && dourada) {
+        // de onde cada letra vem: alternando os lados, sempre de fora da tela
+        letras.forEach((letra, i) => {
+          const daEsquerda = i % 2 === 0;
+          gsap.set(letra, {
+            x: (daEsquerda ? -1 : 1) * gsap.utils.random(280, 620),
+            y: gsap.utils.random(-320, 320),
+            rotate: gsap.utils.random(-140, 140),
+            scale: gsap.utils.random(1.6, 2.4),
+            opacity: 0,
+            filter: 'blur(14px)',
+          });
+        });
+
+        const chegada = gsap.timeline();
+
+        // todas assentam, menos a dourada
+        chegada.to(
+          letras.filter((l) => l !== dourada),
+          {
+            x: 0, y: 0, rotate: 0, scale: 1, opacity: 1,
+            filter: 'blur(0px)',
+            duration: 1.15,
+            ease: 'expo.out',
+            stagger: { each: 0.055, from: 'edges' },
+          },
+        );
+
+        // a dourada fecha a palavra, e o clarao varre o metal
+        chegada.to(
+          dourada,
+          {
+            x: 0, y: 0, rotate: 0, scale: 1, opacity: 1,
+            filter: 'blur(0px)',
+            duration: 0.85,
+            ease: 'back.out(1.7)',
+          },
+          '-=0.35',
+        );
+
+        chegada.fromTo(
+          '.palavra-letras .clarao',
+          { xPercent: -140, opacity: 0 },
+          { xPercent: 520, opacity: 1, duration: 0.75, ease: 'power2.inOut' },
+          '-=0.2',
+        );
+
+        chegada.from('.abertura .legenda', { opacity: 0, y: 12, duration: 0.5 }, '-=0.45');
+      }
 
       let jaAbriu = false;
 
@@ -54,12 +99,11 @@ export function useMotion() {
               ligarMotion();
             },
           })
-          .to('.abertura .anel', { opacity: 0, scale: 1.5, duration: 0.4, ease: 'power2.in' })
-          .to('.abertura .selo', { scale: 1.25, opacity: 0, duration: 0.5, ease: 'power2.in' }, '-=0.25')
+          .to('.montagem', { scale: 1.12, duration: 0.5, ease: 'power2.in' })
           .to('.abertura', { opacity: 0, duration: 0.45, ease: 'power2.inOut' }, '-=0.3');
       }
 
-      const t1 = window.setTimeout(abrirSite, document.readyState === 'complete' ? 700 : 2200);
+      const t1 = window.setTimeout(abrirSite, 2600);
 
       // trava: se o navegador congelar o quadro, a animação de saída nunca
       // termina — passados 4,2s a capa sai de qualquer jeito
@@ -70,7 +114,7 @@ export function useMotion() {
           document.documentElement.classList.remove('carregando');
         }
         ligarMotion();
-      }, 4200);
+      }, 6000);
 
       limpezas.push(() => {
         window.clearTimeout(t1);
