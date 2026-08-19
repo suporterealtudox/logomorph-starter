@@ -238,10 +238,8 @@ header{
   transition:color .2s var(--ease);
 }
 .nav nav a:hover,.nav nav a:focus-visible{color:var(--chrome)}
-.nav .cta-mini{margin-left:1rem}
 @media (max-width:820px){
   .nav nav{display:none}
-  .nav .cta-mini{margin-left:auto}
 }
 @media (max-width:470px){
   .brand b{display:none}
