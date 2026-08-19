@@ -1,6 +1,3 @@
-import { IconeZap } from './Icones';
-import { linkZap, MSG_PADRAO } from '../data/contato';
-
 export function Header() {
   return (
     <header>
@@ -16,15 +13,6 @@ export function Header() {
           <a href="#portfolio">Portfólio</a>
           <a href="#processo">Como funciona</a>
         </nav>
-        <a
-          className="btn btn-whats btn-sm cta-mini"
-          href={linkZap(MSG_PADRAO)}
-          target="_blank"
-          rel="noopener"
-        >
-          <IconeZap tamanho={17} />
-          Chamar agora
-        </a>
       </div>
     </header>
   );

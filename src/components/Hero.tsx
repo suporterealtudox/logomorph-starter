@@ -1,6 +1,3 @@
-import { IconeZap } from './Icones';
-import { linkZap, MSG_PADRAO } from '../data/contato';
-
 export function Hero() {
   return (
     <section className="hero metal">
@@ -21,10 +18,6 @@ export function Hero() {
             pelo designer Patrício e entregues direto no seu WhatsApp.
           </p>
           <div className="hero-ctas">
-            <a className="btn btn-whats" href={linkZap(MSG_PADRAO)} target="_blank" rel="noopener">
-              <IconeZap />
-              Pedir minha logo
-            </a>
             <a className="btn btn-ghost" href="#portfolio">
               Ver trabalhos
             </a>
@@ -35,7 +28,7 @@ export function Hero() {
               <span>ultra realista</span>
             </div>
             <div>
-              <b>R$&nbsp;44,99</b>
+              <b>R$&nbsp;39,99</b>
               <span>a partir de</span>
             </div>
             <div>
