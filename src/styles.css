@@ -469,46 +469,47 @@ footer .social a:hover,footer .social a:focus-visible{color:var(--gold);border-c
 .char{display:inline-block;white-space:pre}
 .palavra{display:inline-block;white-space:nowrap}
 
-/* ---------- abertura: as letras se montando ---------- */
+/* ---------- abertura: as letras se montando ----------
+   As letras são vetores da marca. A medida --u é a unidade do desenho:
+   mudando ela, a palavra inteira cresce ou encolhe mantendo a proporção
+   e o encaixe entre as letras. */
 .abertura{
   position:fixed;inset:0;z-index:200;display:grid;place-items:center;
   padding:2rem 4vw;
   background:radial-gradient(900px 600px at 50% 45%,#0B1A38,var(--bg-deep) 70%);
+  --u:1.55px;
 }
-.montagem{display:grid;justify-items:center;gap:1.6rem;width:100%}
+.montagem{display:grid;justify-items:center;gap:1.4rem}
 
-/* as letras encostadas: e assim que a palavra remonta */
 .palavra-letras{
-  position:relative;display:flex;align-items:flex-end;justify-content:center;
-  width:100%;max-width:min(880px,92vw);
+  position:relative;display:flex;align-items:flex-start;
+  /* a margem negativa aproxima as letras: cada SVG traz uma folga
+     em volta para caber o relevo e a sombra */
+  margin-left:calc(var(--u) * 26);
 }
 .palavra-letras .letra{
-  height:auto;width:auto;
-  flex:0 0 auto;
-  /* a largura de cada letra sai da proporcao real do recorte */
-  max-height:118px;
+  display:block;height:auto;flex:0 0 auto;
+  margin-left:calc(var(--u) * -26);
   will-change:transform,filter,opacity;
 }
-/* clarao que varre a palavra quando a ultima letra encaixa */
+/* Clarão que varre o metal quando a última letra encaixa.
+   Usa "overlay": em cima do metal claro ele acende, no fundo escuro
+   quase não aparece — senão a faixa vira um retângulo visível. */
 .palavra-letras .clarao{
-  position:absolute;top:-12%;bottom:-12%;left:0;width:26%;
+  position:absolute;top:0;bottom:0;left:0;width:18%;
   pointer-events:none;opacity:0;
-  background:linear-gradient(105deg,transparent 0%,rgba(255,255,255,.5) 45%,rgba(255,240,190,.75) 50%,rgba(255,255,255,.5) 55%,transparent 100%);
-  mix-blend-mode:screen;
+  background:linear-gradient(100deg,transparent 0%,rgba(255,255,255,.55) 42%,rgba(255,248,220,.95) 50%,rgba(255,255,255,.55) 58%,transparent 100%);
+  mix-blend-mode:overlay;
 }
 .abertura .legenda{
-  font-size:.74rem;letter-spacing:.34em;text-transform:uppercase;
-  color:var(--muted);white-space:nowrap;text-align:center;
+  font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;
+  color:var(--muted);text-align:center;
 }
 html.carregando{overflow:hidden}
 
-@media (max-width:760px){
-  .palavra-letras .letra{max-height:64px}
-  .abertura .legenda{font-size:.6rem;letter-spacing:.2em;white-space:normal}
-}
-@media (max-width:420px){
-  .palavra-letras .letra{max-height:46px}
-}
+@media (max-width:900px){ .abertura{--u:1.05px} }
+@media (max-width:600px){ .abertura{--u:.72px} .abertura .legenda{font-size:.56rem;letter-spacing:.18em} }
+@media (max-width:400px){ .abertura{--u:.58px} }
 
 /* ---------- barra de progresso da leitura ---------- */
 .progresso{

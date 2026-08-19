@@ -1,20 +1,23 @@
-/** As letras da marca chegam voando e se encaixam formando LOGOMORPH.
- *  Cada arquivo é um recorte da logo verdadeira: emendadas na ordem,
- *  remontam a palavra exatamente como no original. */
+/** A marca se monta letra por letra.
+ *
+ *  Cada letra é o vetor original da LogoMorph, tirado do arquivo do
+ *  designer e vestido de metal com relevo — não é recorte de imagem.
+ *  Por ser vetor, fica nítida em qualquer tela e em qualquer tamanho.
+ *
+ *  As larguras abaixo estão na mesma unidade do desenho: é o que mantém
+ *  a proporção entre as letras e o encaixe da palavra. */
 
 const LETRAS = [
-  { arquivo: '1-L.png', largura: 148 },
-  { arquivo: '2-O.png', largura: 228 },
-  { arquivo: '3-G.png', largura: 216 },
-  { arquivo: '4-O.png', largura: 232 },
-  { arquivo: '5-M.png', largura: 328 },
-  { arquivo: '6-O.png', largura: 228 },
-  { arquivo: '7-R.png', largura: 212 },
-  { arquivo: '8-P.png', largura: 208 },
-  { arquivo: '9-H.png', largura: 216 },
+  { arquivo: '1-L.svg', largura: 59.5 },
+  { arquivo: '2-O.svg', largura: 77.5 },
+  { arquivo: '3-G.svg', largura: 76.0 },
+  { arquivo: '4-O.svg', largura: 73.0 },
+  { arquivo: '5-M.svg', largura: 87.1 }, // a dourada do meio, com a haste
+  { arquivo: '6-O.svg', largura: 73.2 },
+  { arquivo: '7-R.svg', largura: 73.7 },
+  { arquivo: '8-P.svg', largura: 71.5 },
+  { arquivo: '9-H.svg', largura: 76.0 },
 ];
-
-const ALTURA_ORIGINAL = 344;
 
 export function Abertura() {
   return (
@@ -25,11 +28,9 @@ export function Abertura() {
             <img
               key={l.arquivo}
               className="letra"
-              src={`/img/letras/${l.arquivo}`}
+              src={`/img/letras3d/${l.arquivo}`}
               alt=""
-              width={l.largura}
-              height={ALTURA_ORIGINAL}
-              style={{ aspectRatio: `${l.largura} / ${ALTURA_ORIGINAL}` }}
+              style={{ width: `calc(var(--u) * ${l.largura})` }}
             />
           ))}
           <span className="clarao" />
