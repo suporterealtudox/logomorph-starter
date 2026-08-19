@@ -69,6 +69,86 @@ export const TRABALHOS: Trabalho[] = [
     categoria: 'times',
     descricaoImagem: 'Escudo 3D azul e laranja da categoria de base do Futsal Itaí',
   },
+  {
+    arquivo: 'jaguari-fc.jpg',
+    nome: 'Jaguari F.C.',
+    tipo: 'Futebol Clube',
+    categoria: 'times',
+    descricaoImagem:
+      'Emblema circular 3D preto e branco do Jaguari Futebol Clube, com leão rampante preto brilhante segurando um cetro e detalhes de bolas e rosas vermelhas no aro',
+  },
+  {
+    arquivo: 'barceloninha.jpg',
+    nome: 'Barceloninha Academy',
+    tipo: 'Escolinha de futebol',
+    categoria: 'times',
+    descricaoImagem:
+      'Escudo 3D amarelo com listras azuis e grenás e bola de futebol ao centro, da Barceloninha Academy',
+  },
+  {
+    arquivo: 'amigos-do-caia.jpg',
+    nome: 'Amigos do Caiá',
+    tipo: 'Time amador',
+    categoria: 'times',
+    descricaoImagem:
+      'Escudo 3D vermelho, branco e azul com monograma dourado, espigas e faixas escritas "Jogando juntos" e "Jesus Cristo", sobre fundo de madeira',
+  },
+  {
+    arquivo: 'guga-deposito.jpg',
+    nome: 'Guga Comércio e Depósito',
+    tipo: 'Comércio e depósito de bebidas',
+    categoria: 'empresas',
+    descricaoImagem:
+      'Logo circular 3D preta e laranja com letras cromadas GUGA e caneca de chopp no topo, com telefone na borda',
+  },
+  {
+    arquivo: 'beira-do-campo.jpg',
+    nome: 'Beira do Campo F.C.',
+    tipo: 'Futebol Clube',
+    categoria: 'times',
+    descricaoImagem:
+      'Escudo 3D prateado, vermelho e preto com bandeira quadriculada, leão prateado, estrela dourada e o ano 2019',
+  },
+  {
+    arquivo: 'didisports.jpg',
+    nome: 'Didisports',
+    tipo: 'Artigos esportivos',
+    categoria: 'empresas',
+    descricaoImagem:
+      'Logo 3D azul-marinho e cromada com monograma D e o nome Didisports, com telefone de WhatsApp abaixo',
+  },
+  {
+    arquivo: 'piaui-ec.jpg',
+    nome: 'Piauí Esporte Clube',
+    tipo: 'Clube esportivo',
+    categoria: 'times',
+    descricaoImagem:
+      'Emblema circular 3D vermelho, branco e azul do Piauí Esporte Clube com punho fechado, ramos dourados e a frase Rua da Inveja',
+  },
+  {
+    arquivo: 'porto-socorrense.jpg',
+    nome: 'Porto Socorrense',
+    tipo: 'Clube de futebol',
+    categoria: 'times',
+    descricaoImagem:
+      'Escudo 3D azul-marinho e prateado do Porto Socorrense com estrela cromada e bola de futebol azul e branca',
+  },
+  {
+    arquivo: 'adega-do-fs.jpg',
+    nome: 'Adega do FS',
+    tipo: 'Adega',
+    categoria: 'comida',
+    descricaoImagem:
+      'Selo circular 3D dourado sobre fundo preto com dois canecos de chopp brindando, espigas e faixa escrita Adega do FS',
+  },
+  {
+    arquivo: 'garotos-nova-geracao.jpg',
+    nome: 'E.C. Garotos Nova Geração',
+    tipo: 'Escolinha de futebol',
+    categoria: 'times',
+    descricaoImagem:
+      'Emblema circular 3D azul e amarelo com jogador prateado em relevo dominando a bola e três estrelas douradas',
+  },
 ];
 
 export const FILTROS = [
