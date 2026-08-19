@@ -16,7 +16,7 @@ export const SERVICOS: Servico[] = [
     id: 'transformacao',
     nome: 'Transformação de logo',
     descricao: 'Do desenho ou rascunho ao 3D 8K ultra realista, com alto relevo e profundidade.',
-    preco: '44,99',
+    preco: '39,99',
     itens: [
       'Transformação a partir do seu desenho',
       'Alto relevo e profundidade',
@@ -24,7 +24,7 @@ export const SERVICOS: Servico[] = [
       'Arquivo pronto para uso',
     ],
     textoBotao: 'Quero transformar',
-    mensagemZap: 'Olá Patrício! Quero a TRANSFORMAÇÃO de logo (R$44,99).',
+    mensagemZap: 'Olá Patrício! Quero a TRANSFORMAÇÃO de logo (R$39,99).',
   },
   {
     id: 'criacao',

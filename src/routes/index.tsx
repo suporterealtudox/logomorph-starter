@@ -29,7 +29,7 @@ export const Route = createFileRoute("/")({
       {
         property: "og:description",
         content:
-          "Logotipos 3D hiper-realistas a partir de R$ 44,99. Criação, transformação e vetorização. Chame no WhatsApp: 62 99928-3581.",
+          "Logotipos 3D hiper-realistas a partir de R$ 39,99. Criação, transformação e vetorização. Chame no WhatsApp: 62 99928-3581.",
       },
       { property: "og:image", content: "/img/logomorph-logo.png" },
       { property: "og:type", content: "website" },
