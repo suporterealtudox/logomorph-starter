@@ -225,8 +225,8 @@ section{padding:clamp(4.5rem,9vw,7.5rem) 0;position:relative;scroll-margin-top:8
 /* ---------- nav ---------- */
 header{
   position:fixed;inset-inline:0;top:0;z-index:50;
-  background:rgba(4,7,15,.72);
-  backdrop-filter:blur(14px);
+  background:rgba(4,7,15,.94);
+  backdrop-filter:blur(16px);
   -webkit-backdrop-filter:blur(14px);
   border-bottom:1px solid rgba(180,200,255,.09);
 }
