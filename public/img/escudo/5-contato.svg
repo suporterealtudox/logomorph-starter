@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 46">
+  <defs>
+    <linearGradient id="pil" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#102A57"/><stop offset="0.5" stop-color="#07152F"/>
+      <stop offset="1" stop-color="#03091A"/>
+    </linearGradient>
+    <filter id="sp" x="-12%" y="-45%" width="124%" height="200%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#000" flood-opacity="0.8"/>
+    </filter>
+  </defs>
+  <g filter="url(#sp)">
+    <rect x="2.5" y="2.5" width="435" height="41" rx="20.5" fill="url(#pil)"
+          stroke="#F5C542" stroke-width="2.2"/>
+  </g>
+  <g transform="translate(22,11)">
+    <circle cx="11" cy="11" r="10.4" fill="none" stroke="#F2F5FA" stroke-width="2"/>
+    <path d="M6.9 14.9c-.5-.85-.78-1.85-.78-2.9a5.6 5.6 0 1 1 2.8 4.85l-2.75.75.73-2.7z"
+          fill="none" stroke="#F2F5FA" stroke-width="1.8" stroke-linejoin="round"/>
+  </g>
+  <text x="52" y="30" font-family="Archivo, Arial, sans-serif" font-weight="800"
+        font-size="20" fill="#F2F5FA" letter-spacing="0.4">62 99928-3581</text>
+  <line x1="228" y1="12" x2="228" y2="34" stroke="#F5C542" stroke-width="1.8" opacity="0.7"/>
+  <g transform="translate(240,11)">
+    <rect x="0.8" y="0.8" width="20.4" height="20.4" rx="6" fill="none" stroke="#F2F5FA" stroke-width="2"/>
+    <circle cx="11" cy="11" r="5.1" fill="none" stroke="#F2F5FA" stroke-width="2"/>
+    <circle cx="17.4" cy="4.8" r="1.5" fill="#F2F5FA"/>
+  </g>
+  <text x="270" y="30" font-family="Archivo, Arial, sans-serif" font-weight="800"
+        font-size="18" fill="#F2F5FA" letter-spacing="0.3">@LOGO_MORPH3</text>
+</svg>

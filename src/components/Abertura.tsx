@@ -1,12 +1,12 @@
-/** A marca se monta na frente do visitante: primeiro o emblema LM,
- *  depois o nome, letra por letra.
+/** O escudo da LogoMorph se monta na frente do visitante.
  *
- *  Tudo aqui é o vetor original da LogoMorph, tirado do arquivo do
- *  designer e vestido de metal com relevo — não é recorte de imagem.
- *  Por ser vetor, fica nítido em qualquer tela e em qualquer tamanho.
+ *  Nada aqui é imagem recortada: o aro, o disco, o monograma, as letras,
+ *  a frase e a barra de contato são peças separadas, em vetor, tiradas do
+ *  arquivo do designer e vestidas de metal. Cada uma chega no seu tempo
+ *  até o escudo ficar inteiro.
  *
- *  As larguras estão na mesma unidade do desenho: é o que mantém a
- *  proporção entre as letras e o encaixe da palavra. */
+ *  As medidas estão em porcentagem do escudo (620x620 no desenho), então
+ *  a montagem inteira acompanha o tamanho da tela sem sair do lugar. */
 
 const LETRAS = [
   { arquivo: '1-L.svg', largura: 59.5 },
@@ -23,9 +23,16 @@ const LETRAS = [
 export function Abertura() {
   return (
     <div className="abertura" id="abertura" aria-hidden="true">
-      <div className="montagem">
-        <img className="emblema" src="/img/letras3d/0-emblema.svg" alt="" />
+      <div className="escudo">
+        {/* as três camadas de metal do escudo */}
+        <img className="peca aro" src="/img/escudo/1-aro.svg" alt="" />
+        <img className="peca disco" src="/img/escudo/2-disco.svg" alt="" />
+        <img className="peca anel" src="/img/escudo/3-anel.svg" alt="" />
 
+        {/* o monograma, no alto */}
+        <img className="peca monograma" src="/img/letras3d/0-emblema.svg" alt="" />
+
+        {/* o nome, letra por letra */}
         <div className="palavra-letras">
           {LETRAS.map((l) => (
             <img
@@ -38,7 +45,9 @@ export function Abertura() {
           ))}
         </div>
 
-        <span className="legenda">Transformando ideias em marcas de impacto</span>
+        {/* a assinatura e o contato */}
+        <img className="peca frase" src="/img/escudo/4-frase.svg" alt="" />
+        <img className="peca contato" src="/img/escudo/5-contato.svg" alt="" />
       </div>
     </div>
   );

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 30">
+  <defs>
+    <filter id="st" x="-10%" y="-50%" width="120%" height="220%">
+      <feDropShadow dx="0" dy="1.5" stdDeviation="1.2" flood-color="#000" flood-opacity="0.9"/>
+    </filter>
+  </defs>
+  <text x="280" y="21" text-anchor="middle" filter="url(#st)"
+        font-family="Archivo, Arial Black, Arial, sans-serif" font-weight="900"
+        font-size="18" letter-spacing="0.3">
+    <tspan fill="#F2F5FA">TRANSFORMANDO IDEIAS EM </tspan><tspan fill="#F5C542">MARCAS DE </tspan><tspan fill="#F5C542" font-size="21">IMPACTO</tspan>
+  </text>
+</svg>

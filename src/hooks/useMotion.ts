@@ -27,78 +27,85 @@ export function useMotion() {
     const ctx = gsap.context(() => {
       const temMouse = matchMedia('(pointer:fine)').matches;
 
-      /* ---------- abertura: as letras se montando ----------
-         Cada letra e um recorte da logo verdadeira. Elas chegam de
-         pontos diferentes da tela, giradas e desfocadas, e vao
-         assentando na posicao ate remontar a palavra. */
+      /* ---------- abertura: o escudo se montando ----------
+         Cada peça é uma parte de verdade da marca. Elas chegam na ordem
+         em que a peça seria construída: primeiro o aro, depois o fundo,
+         então o monograma, o nome e por fim a assinatura. */
       document.documentElement.classList.add('carregando');
 
       const letras = gsap.utils.toArray<HTMLElement>('.palavra-letras .letra');
-      const dourada = letras[4]; // o M do meio: assenta por ultimo
+      const dourada = letras[4]; // o M do meio: assenta por último
+
+      const chegada = gsap.timeline({ defaults: { ease: 'expo.out' } });
+
+      // o aro chega girando, como um selo sendo prensado
+      chegada.fromTo('.escudo .aro',
+        { opacity: 0, scale: 1.5, rotate: -95, filter: 'blur(12px) brightness(1)' },
+        { opacity: 1, scale: 1, rotate: 0, filter: 'blur(0px) brightness(1)', duration: 1.0 });
+
+      // o fundo azul abre do centro
+      chegada.fromTo('.escudo .disco',
+        { opacity: 0, scale: 0.45 },
+        { opacity: 1, scale: 1, duration: 0.7 }, '-=0.55');
+
+      chegada.fromTo('.escudo .anel',
+        { opacity: 0, scale: 1.25, rotate: 40 },
+        { opacity: 1, scale: 1, rotate: 0, duration: 0.6 }, '-=0.45');
+
+      // o monograma cai e encaixa
+      chegada.fromTo('.escudo .monograma',
+        { opacity: 0, y: '-38%', scale: 0.5, rotate: -150, filter: 'blur(9px) brightness(1)' },
+        { opacity: 1, y: '0%', scale: 1, rotate: 0, filter: 'blur(0px) brightness(1)',
+          duration: 0.9, ease: 'back.out(1.4)' }, '-=0.35');
 
       if (letras.length && dourada) {
-        // de onde cada letra vem: alternando os lados, sempre de fora da tela
+        // as letras vêm de fora da tela, giradas e desfocadas
         letras.forEach((letra, i) => {
           const daEsquerda = i % 2 === 0;
           gsap.set(letra, {
-            x: (daEsquerda ? -1 : 1) * gsap.utils.random(280, 620),
-            y: gsap.utils.random(-320, 320),
-            rotate: gsap.utils.random(-140, 140),
-            scale: gsap.utils.random(1.6, 2.4),
+            x: (daEsquerda ? -1 : 1) * gsap.utils.random(320, 700),
+            y: gsap.utils.random(-260, 300),
+            rotate: gsap.utils.random(-150, 150),
+            scale: gsap.utils.random(1.7, 2.6),
             opacity: 0,
             filter: 'blur(14px) brightness(1)',
           });
         });
 
-        const chegada = gsap.timeline();
+        chegada.to(letras.filter((l) => l !== dourada), {
+          x: 0, y: 0, rotate: 0, scale: 1, opacity: 1,
+          filter: 'blur(0px) brightness(1)',
+          duration: 1.05,
+          stagger: { each: 0.05, from: 'edges' },
+        }, '-=0.5');
 
-        // o emblema chega primeiro: gira, cresce e assenta
-        chegada.fromTo(
-          '.montagem .emblema',
-          { opacity: 0, scale: 0.35, rotate: -180, filter: 'blur(10px) brightness(1)' },
-          { opacity: 1, scale: 1, rotate: 0, filter: 'blur(0px) brightness(1)', duration: 1.1, ease: 'expo.out' },
-        );
-
-        // todas assentam, menos a dourada
-        chegada.to(
-          letras.filter((l) => l !== dourada),
-          {
-            x: 0, y: 0, rotate: 0, scale: 1, opacity: 1,
-            filter: 'blur(0px) brightness(1)',
-            duration: 1.15,
-            ease: 'expo.out',
-            stagger: { each: 0.055, from: 'edges' },
-          },
-          '-=0.55',
-        );
-
-        // a dourada fecha a palavra, e o clarao varre o metal
-        chegada.to(
-          dourada,
-          {
-            x: 0, y: 0, rotate: 0, scale: 1, opacity: 1,
-            filter: 'blur(0px) brightness(1)',
-            duration: 0.85,
-            ease: 'back.out(1.7)',
-          },
-          '-=0.35',
-        );
-
-        // a luz varre o metal passando letra por letra — sem faixa por
-        // cima, que apareceria como um retângulo sobre o fundo escuro
-        chegada.to(
-          letras,
-          {
-            filter: 'blur(0px) brightness(1.85)',
-            duration: 0.16,
-            ease: 'sine.inOut',
-            stagger: { each: 0.045, repeat: 1, yoyo: true },
-          },
-          '-=0.15',
-        );
-
-        chegada.from('.abertura .legenda', { opacity: 0, y: 12, duration: 0.5 }, '-=0.45');
+        // a dourada fecha a palavra
+        chegada.to(dourada, {
+          x: 0, y: 0, rotate: 0, scale: 1, opacity: 1,
+          filter: 'blur(0px) brightness(1)',
+          duration: 0.8, ease: 'back.out(1.7)',
+        }, '-=0.3');
       }
+
+      // a assinatura e o contato completam o escudo
+      chegada.fromTo('.escudo .frase',
+        { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.5 }, '-=0.25');
+      chegada.fromTo('.escudo .contato',
+        { opacity: 0, y: 22, scale: 0.9 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.55 }, '-=0.3');
+
+      // a luz corre pelo metal, peça por peça, fechando a montagem
+      const metal: HTMLElement[] = [
+        ...gsap.utils.toArray<HTMLElement>('.escudo .aro'),
+        ...gsap.utils.toArray<HTMLElement>('.escudo .monograma'),
+        ...letras,
+      ];
+      chegada.to(metal, {
+        filter: 'blur(0px) brightness(1.8)',
+        duration: 0.15,
+        ease: 'sine.inOut',
+        stagger: { each: 0.04, repeat: 1, yoyo: true },
+      }, '-=0.1');
 
       let jaAbriu = false;
 
@@ -113,11 +120,11 @@ export function useMotion() {
               ligarMotion();
             },
           })
-          .to('.montagem', { scale: 1.12, duration: 0.5, ease: 'power2.in' })
+          .to('.escudo', { scale: 1.14, duration: 0.55, ease: 'power2.in' })
           .to('.abertura', { opacity: 0, duration: 0.45, ease: 'power2.inOut' }, '-=0.3');
       }
 
-      const t1 = window.setTimeout(abrirSite, 2600);
+      const t1 = window.setTimeout(abrirSite, 5200);
 
       // trava: se o navegador congelar o quadro, a animação de saída nunca
       // termina — passados 4,2s a capa sai de qualquer jeito
@@ -128,7 +135,7 @@ export function useMotion() {
           document.documentElement.classList.remove('carregando');
         }
         ligarMotion();
-      }, 6000);
+      }, 9000);
 
       limpezas.push(() => {
         window.clearTimeout(t1);
@@ -195,7 +202,7 @@ export function useMotion() {
 
         const t3 = window.setTimeout(() => {
           if (intro.progress() < 1) intro.progress(1);
-        }, 6000);
+        }, 9000);
         limpezas.push(() => window.clearTimeout(t3));
 
         /* brilho metálico varrendo o emblema, sem parar */

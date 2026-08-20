@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 620">
+  <defs>
+    <linearGradient id="ouroFino" x1="0.15" y1="0" x2="0.85" y2="1">
+      <stop offset="0" stop-color="#FFF3C2"/><stop offset="0.2" stop-color="#E9BE55"/>
+      <stop offset="0.45" stop-color="#7A5206"/><stop offset="0.6" stop-color="#D9A32A"/>
+      <stop offset="0.85" stop-color="#FFE79A"/><stop offset="1" stop-color="#8A5F0B"/>
+    </linearGradient>
+  </defs>
+  <circle cx="310" cy="310" r="279" fill="none" stroke="url(#ouroFino)" stroke-width="4"/>
+</svg>
