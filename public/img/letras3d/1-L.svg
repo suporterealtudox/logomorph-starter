@@ -1,39 +1,80 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="26.24 545.57 59.49 99.51">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="23.24 542.57 65.49 105.51">
   <defs>
     <path id="f-1-L" d="M 53.95 559.09 C 56.15 558.57 60.55 558.73 62.68 558.81 C 64.81 558.89 64.69 558.89 62.79 568.78 C 60.89 578.68 57.21 598.48 55.41 608.39 C 53.62 618.31 53.71 618.35 53.76 618.33 C 53.80 618.31 53.80 618.23 56.90 618.23 C 59.99 618.23 66.17 618.31 69.36 618.21 C 72.55 618.11 72.73 617.84 72.27 620.08 C 71.80 622.32 70.69 627.09 70.13 629.47 C 69.58 631.85 69.58 631.85 64.52 631.89 C 59.46 631.93 49.35 632.00 44.30 632.04 C 39.24 632.08 39.24 632.08 40.94 622.42 C 42.64 612.75 46.04 593.41 47.92 582.83 C 49.80 572.24 50.16 570.41 50.46 568.88 C 50.76 567.35 51.00 566.12 51.20 565.03 C 51.40 563.93 51.56 562.96 51.65 561.88 C 51.74 560.80 51.75 559.61 53.95 559.09 Z" fill-rule="evenodd"/>
-    <linearGradient id="g-1-L" x1="0" y1="0" x2="0.25" y2="1">
+
+    <linearGradient id="metal-1-L" x1="0" y1="0" x2="0.18" y2="1">
       <stop offset="0" stop-color="#FFFFFF"/>
-      <stop offset="0.3" stop-color="#E8EDF5"/>
-      <stop offset="0.52" stop-color="#AFBACB"/>
-      <stop offset="0.74" stop-color="#F2F5FA"/>
-      <stop offset="1" stop-color="#8E9AAC"/>
+      <stop offset="0.09" stop-color="#F2F6FC"/>
+      <stop offset="0.2" stop-color="#D3DEEC"/>
+      <stop offset="0.32" stop-color="#93A3B9"/>
+      <stop offset="0.43" stop-color="#5A6880"/>
+      <stop offset="0.5" stop-color="#3C4762"/>
+      <stop offset="0.57" stop-color="#8695AC"/>
+      <stop offset="0.68" stop-color="#DCE6F2"/>
+      <stop offset="0.8" stop-color="#FFFFFF"/>
+      <stop offset="0.9" stop-color="#B7C4D6"/>
+      <stop offset="1" stop-color="#6E7B90"/>
     </linearGradient>
-    <linearGradient id="luz-1-L" x1="0" y1="0" x2="0.2" y2="1">
-      <stop offset="0" stop-color="#fff" stop-opacity="0.85"/>
-      <stop offset="0.35" stop-color="#fff" stop-opacity="0.12"/>
-      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+
+    <!-- Bisel: a forma borrada vira um mapa de relevo, e a luz calcula
+         o brilho da aresta em cima dele. E o que da o 3D de verdade. -->
+    <filter id="bisel-1-L" x="-40%" y="-40%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="2.4" result="relevo"/>
+      <feSpecularLighting in="relevo" surfaceScale="4.5" specularConstant="1.25"
+                          specularExponent="22" lighting-color="#FFFFFF" result="luz">
+        <feDistantLight azimuth="228" elevation="62"/>
+      </feSpecularLighting>
+      <feComposite in="luz" in2="SourceAlpha" operator="in" result="luzCortada"/>
+      <feComposite in="SourceGraphic" in2="luzCortada"
+                   operator="arithmetic" k1="0" k2="1" k3="0.92" k4="0"/>
+    </filter>
+
+    <!-- fio de luz correndo na aresta de cima -->
+    <linearGradient id="fio-1-L" x1="0" y1="0" x2="0" y2="0.4">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.95"/>
+      <stop offset="0.5" stop-color="#FFFFFF" stop-opacity="0.25"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
     </linearGradient>
-    <filter id="sombra-1-L" x="-30%" y="-30%" width="180%" height="180%">
-      <feDropShadow dx="3.5" dy="4.9" stdDeviation="2.6" flood-color="#000" flood-opacity="0.55"/>
+
+    <filter id="sombra-1-L" x="-40%" y="-40%" width="200%" height="200%">
+      <feDropShadow dx="5.0" dy="7.2" stdDeviation="3.4"
+                    flood-color="#000" flood-opacity="0.6"/>
     </filter>
   </defs>
+
   <g filter="url(#sombra-1-L)">
-    <use href="#f-1-L" x="7.00" y="7.00" fill="#32363e"/>
-    <use href="#f-1-L" x="6.50" y="6.50" fill="#353942"/>
-    <use href="#f-1-L" x="6.00" y="6.00" fill="#383d46"/>
-    <use href="#f-1-L" x="5.50" y="5.50" fill="#3b404a"/>
-    <use href="#f-1-L" x="5.00" y="5.00" fill="#3f444e"/>
-    <use href="#f-1-L" x="4.50" y="4.50" fill="#424752"/>
-    <use href="#f-1-L" x="4.00" y="4.00" fill="#454b56"/>
-    <use href="#f-1-L" x="3.50" y="3.50" fill="#494f5b"/>
-    <use href="#f-1-L" x="3.00" y="3.00" fill="#4c525f"/>
-    <use href="#f-1-L" x="2.50" y="2.50" fill="#4f5663"/>
-    <use href="#f-1-L" x="2.00" y="2.00" fill="#525967"/>
-    <use href="#f-1-L" x="1.50" y="1.50" fill="#565d6b"/>
-    <use href="#f-1-L" x="1.00" y="1.00" fill="#59606f"/>
-    <use href="#f-1-L" x="0.50" y="0.50" fill="#5c6473"/>
+    <use href="#f-1-L" x="9.00" y="9.00" fill="#32353c"/>
+    <use href="#f-1-L" x="8.59" y="8.59" fill="#353840"/>
+    <use href="#f-1-L" x="8.18" y="8.18" fill="#383c44"/>
+    <use href="#f-1-L" x="7.77" y="7.77" fill="#3b3f48"/>
+    <use href="#f-1-L" x="7.36" y="7.36" fill="#3f434d"/>
+    <use href="#f-1-L" x="6.95" y="6.95" fill="#424751"/>
+    <use href="#f-1-L" x="6.55" y="6.55" fill="#454a55"/>
+    <use href="#f-1-L" x="6.14" y="6.14" fill="#484e59"/>
+    <use href="#f-1-L" x="5.73" y="5.73" fill="#4c525e"/>
+    <use href="#f-1-L" x="5.32" y="5.32" fill="#4f5562"/>
+    <use href="#f-1-L" x="4.91" y="4.91" fill="#525966"/>
+    <use href="#f-1-L" x="4.50" y="4.50" fill="#565d6b"/>
+    <use href="#f-1-L" x="4.09" y="4.09" fill="#59606f"/>
+    <use href="#f-1-L" x="3.68" y="3.68" fill="#5c6473"/>
+    <use href="#f-1-L" x="3.27" y="3.27" fill="#5f6777"/>
+    <use href="#f-1-L" x="2.86" y="2.86" fill="#636b7c"/>
+    <use href="#f-1-L" x="2.45" y="2.45" fill="#666f80"/>
+    <use href="#f-1-L" x="2.05" y="2.05" fill="#697284"/>
+    <use href="#f-1-L" x="1.64" y="1.64" fill="#6c7688"/>
+    <use href="#f-1-L" x="1.23" y="1.23" fill="#707a8d"/>
+    <use href="#f-1-L" x="0.82" y="0.82" fill="#737d91"/>
+    <use href="#f-1-L" x="0.41" y="0.41" fill="#768195"/>
   </g>
-  <use href="#f-1-L" fill="#2A3244" stroke="#2A3244" stroke-width="2.6" stroke-linejoin="round"/>
-  <use href="#f-1-L" fill="url(#g-1-L)"/>
-  <use href="#f-1-L" fill="url(#luz-1-L)"/>
+
+  <!-- contorno escuro, como no desenho original -->
+  <use href="#f-1-L" fill="#1E2534" stroke="#1E2534" stroke-width="3" stroke-linejoin="round"/>
+
+  <!-- a face, com o metal e o bisel iluminado -->
+  <g filter="url(#bisel-1-L)">
+    <use href="#f-1-L" fill="url(#metal-1-L)"/>
+  </g>
+
+  <!-- fio de luz na aresta superior -->
+  <use href="#f-1-L" fill="url(#fio-1-L)"/>
 </svg>

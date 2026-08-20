@@ -1,39 +1,80 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="162.36 684.10 73.74 91.34">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="159.36 681.10 79.74 97.34">
   <defs>
     <path id="f-7-R" d="M 189.89 697.60 C 193.65 697.47 200.47 697.28 204.98 697.19 C 209.49 697.10 211.67 697.10 213.44 697.52 C 215.20 697.95 216.53 698.79 217.93 700.19 C 219.32 701.58 220.76 703.52 221.56 705.26 C 222.36 707.01 222.51 708.57 222.69 710.95 C 222.88 713.33 223.10 716.54 222.58 719.31 C 222.06 722.07 220.80 724.38 219.28 726.60 C 217.76 728.82 215.98 730.94 214.42 732.57 C 212.86 734.20 211.53 735.33 210.93 735.83 C 210.34 736.32 210.49 736.18 211.88 740.22 C 213.27 744.26 215.90 752.47 217.33 756.72 C 218.76 760.97 218.98 761.25 216.85 761.46 C 214.72 761.67 210.23 761.82 207.97 761.93 C 205.70 762.05 205.67 762.15 204.55 758.42 C 203.44 754.69 201.25 747.14 200.12 743.29 C 198.99 739.44 198.91 739.30 198.77 739.11 C 198.62 738.92 198.39 738.69 197.10 738.52 C 195.80 738.35 193.42 738.26 192.20 738.28 C 190.97 738.31 190.90 738.45 190.25 742.51 C 189.60 746.57 188.38 754.55 187.78 758.49 C 187.19 762.43 187.23 762.34 185.30 762.29 C 183.37 762.24 179.47 762.24 177.47 762.22 C 175.47 762.19 175.36 762.15 176.86 751.67 C 178.36 741.19 181.48 720.27 183.04 709.70 C 184.61 699.13 184.63 698.91 184.66 698.65 C 184.69 698.40 184.73 698.12 185.09 697.95 C 185.45 697.78 186.14 697.72 189.89 697.60 M 197.44 710.61 C 198.91 710.58 201.74 710.56 203.67 710.62 C 205.59 710.68 206.61 710.82 207.47 711.17 C 208.33 711.53 209.04 712.11 209.52 712.96 C 210.01 713.80 210.27 714.92 210.37 716.04 C 210.48 717.15 210.41 718.27 210.19 719.19 C 209.98 720.12 209.60 720.86 209.04 721.77 C 208.49 722.69 207.75 723.79 206.69 724.40 C 205.62 725.02 204.23 725.16 202.70 725.31 C 201.18 725.46 199.52 725.62 198.03 725.72 C 196.54 725.82 195.23 725.86 194.54 725.80 C 193.85 725.74 193.79 725.58 194.08 723.24 C 194.37 720.90 195.01 716.37 195.33 714.11 C 195.65 711.85 195.65 711.85 195.66 711.74 C 195.67 711.63 195.70 711.40 195.72 711.21 C 195.74 711.03 195.76 710.88 195.82 710.78 C 195.88 710.69 195.98 710.64 197.44 710.61 Z" fill-rule="evenodd"/>
-    <linearGradient id="g-7-R" x1="0" y1="0" x2="0.25" y2="1">
-      <stop offset="0" stop-color="#FFF0B4"/>
-      <stop offset="0.28" stop-color="#F7CF4A"/>
-      <stop offset="0.52" stop-color="#E0A81C"/>
-      <stop offset="0.75" stop-color="#F5C542"/>
-      <stop offset="1" stop-color="#B57E11"/>
+
+    <linearGradient id="metal-7-R" x1="0" y1="0" x2="0.18" y2="1">
+      <stop offset="0" stop-color="#FFFBE8"/>
+      <stop offset="0.09" stop-color="#FFEFB0"/>
+      <stop offset="0.2" stop-color="#FBD86A"/>
+      <stop offset="0.32" stop-color="#E8B02C"/>
+      <stop offset="0.43" stop-color="#A9700C"/>
+      <stop offset="0.5" stop-color="#7A4E05"/>
+      <stop offset="0.57" stop-color="#C98F14"/>
+      <stop offset="0.68" stop-color="#FBDE7C"/>
+      <stop offset="0.8" stop-color="#FFF0B8"/>
+      <stop offset="0.9" stop-color="#E8B93A"/>
+      <stop offset="1" stop-color="#8A5B06"/>
     </linearGradient>
-    <linearGradient id="luz-7-R" x1="0" y1="0" x2="0.2" y2="1">
-      <stop offset="0" stop-color="#fff" stop-opacity="0.85"/>
-      <stop offset="0.35" stop-color="#fff" stop-opacity="0.12"/>
-      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+
+    <!-- Bisel: a forma borrada vira um mapa de relevo, e a luz calcula
+         o brilho da aresta em cima dele. E o que da o 3D de verdade. -->
+    <filter id="bisel-7-R" x="-40%" y="-40%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="2.4" result="relevo"/>
+      <feSpecularLighting in="relevo" surfaceScale="4.5" specularConstant="1.25"
+                          specularExponent="22" lighting-color="#FFF6DC" result="luz">
+        <feDistantLight azimuth="228" elevation="62"/>
+      </feSpecularLighting>
+      <feComposite in="luz" in2="SourceAlpha" operator="in" result="luzCortada"/>
+      <feComposite in="SourceGraphic" in2="luzCortada"
+                   operator="arithmetic" k1="0" k2="1" k3="0.92" k4="0"/>
+    </filter>
+
+    <!-- fio de luz correndo na aresta de cima -->
+    <linearGradient id="fio-7-R" x1="0" y1="0" x2="0" y2="0.4">
+      <stop offset="0" stop-color="#FFFDF2" stop-opacity="0.95"/>
+      <stop offset="0.5" stop-color="#FFFDF2" stop-opacity="0.25"/>
+      <stop offset="1" stop-color="#FFFDF2" stop-opacity="0"/>
     </linearGradient>
-    <filter id="sombra-7-R" x="-30%" y="-30%" width="180%" height="180%">
-      <feDropShadow dx="3.5" dy="4.9" stdDeviation="2.6" flood-color="#000" flood-opacity="0.55"/>
+
+    <filter id="sombra-7-R" x="-40%" y="-40%" width="200%" height="200%">
+      <feDropShadow dx="5.0" dy="7.2" stdDeviation="3.4"
+                    flood-color="#000" flood-opacity="0.6"/>
     </filter>
   </defs>
+
   <g filter="url(#sombra-7-R)">
-    <use href="#f-7-R" x="7.00" y="7.00" fill="#412608"/>
-    <use href="#f-7-R" x="6.50" y="6.50" fill="#442807"/>
-    <use href="#f-7-R" x="6.00" y="6.00" fill="#482b07"/>
-    <use href="#f-7-R" x="5.50" y="5.50" fill="#4c2e07"/>
-    <use href="#f-7-R" x="5.00" y="5.00" fill="#503107"/>
-    <use href="#f-7-R" x="4.50" y="4.50" fill="#543407"/>
-    <use href="#f-7-R" x="4.00" y="4.00" fill="#583707"/>
-    <use href="#f-7-R" x="3.50" y="3.50" fill="#5c3a07"/>
-    <use href="#f-7-R" x="3.00" y="3.00" fill="#603c06"/>
-    <use href="#f-7-R" x="2.50" y="2.50" fill="#643f06"/>
-    <use href="#f-7-R" x="2.00" y="2.00" fill="#684206"/>
-    <use href="#f-7-R" x="1.50" y="1.50" fill="#6c4506"/>
-    <use href="#f-7-R" x="1.00" y="1.00" fill="#704806"/>
-    <use href="#f-7-R" x="0.50" y="0.50" fill="#744b06"/>
+    <use href="#f-7-R" x="9.00" y="9.00" fill="#362306"/>
+    <use href="#f-7-R" x="8.59" y="8.59" fill="#3a2606"/>
+    <use href="#f-7-R" x="8.18" y="8.18" fill="#3e2906"/>
+    <use href="#f-7-R" x="7.77" y="7.77" fill="#432c07"/>
+    <use href="#f-7-R" x="7.36" y="7.36" fill="#472f07"/>
+    <use href="#f-7-R" x="6.95" y="6.95" fill="#4b3207"/>
+    <use href="#f-7-R" x="6.55" y="6.55" fill="#503508"/>
+    <use href="#f-7-R" x="6.14" y="6.14" fill="#543808"/>
+    <use href="#f-7-R" x="5.73" y="5.73" fill="#583b08"/>
+    <use href="#f-7-R" x="5.32" y="5.32" fill="#5d3e09"/>
+    <use href="#f-7-R" x="4.91" y="4.91" fill="#614109"/>
+    <use href="#f-7-R" x="4.50" y="4.50" fill="#66440a"/>
+    <use href="#f-7-R" x="4.09" y="4.09" fill="#6a470a"/>
+    <use href="#f-7-R" x="3.68" y="3.68" fill="#6e4a0a"/>
+    <use href="#f-7-R" x="3.27" y="3.27" fill="#734d0b"/>
+    <use href="#f-7-R" x="2.86" y="2.86" fill="#77500b"/>
+    <use href="#f-7-R" x="2.45" y="2.45" fill="#7b530b"/>
+    <use href="#f-7-R" x="2.05" y="2.05" fill="#80560c"/>
+    <use href="#f-7-R" x="1.64" y="1.64" fill="#84590c"/>
+    <use href="#f-7-R" x="1.23" y="1.23" fill="#885c0c"/>
+    <use href="#f-7-R" x="0.82" y="0.82" fill="#8d5f0d"/>
+    <use href="#f-7-R" x="0.41" y="0.41" fill="#91620d"/>
   </g>
-  <use href="#f-7-R" fill="#6B4708" stroke="#6B4708" stroke-width="2.6" stroke-linejoin="round"/>
-  <use href="#f-7-R" fill="url(#g-7-R)"/>
-  <use href="#f-7-R" fill="url(#luz-7-R)"/>
+
+  <!-- contorno escuro, como no desenho original -->
+  <use href="#f-7-R" fill="#3A2604" stroke="#3A2604" stroke-width="3" stroke-linejoin="round"/>
+
+  <!-- a face, com o metal e o bisel iluminado -->
+  <g filter="url(#bisel-7-R)">
+    <use href="#f-7-R" fill="url(#metal-7-R)"/>
+  </g>
+
+  <!-- fio de luz na aresta superior -->
+  <use href="#f-7-R" fill="url(#fio-7-R)"/>
 </svg>

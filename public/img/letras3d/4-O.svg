@@ -1,39 +1,80 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="75.15 645.29 72.98 92.65">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="72.15 642.29 78.98 98.65">
   <defs>
     <path id="f-4-O" d="M 103.50 663.25 C 104.92 662.45 107.31 661.34 109.38 660.44 C 111.45 659.55 113.19 658.87 115.13 658.58 C 117.06 658.29 119.19 658.39 121.16 658.80 C 123.14 659.21 124.96 659.94 126.72 661.19 C 128.49 662.45 130.20 664.24 131.45 666.38 C 132.70 668.53 133.50 671.04 134.11 674.18 C 134.71 677.32 135.13 681.09 135.13 684.95 C 135.13 688.82 134.71 692.78 133.95 696.38 C 133.19 699.97 132.09 703.21 130.56 706.35 C 129.02 709.49 127.05 712.53 124.66 715.16 C 122.26 717.79 119.46 720.02 116.74 721.58 C 114.03 723.15 111.41 724.07 109.32 724.51 C 107.24 724.94 105.68 724.89 104.01 724.63 C 102.34 724.36 100.56 723.88 98.89 723.03 C 97.22 722.19 95.66 720.98 94.37 719.51 C 93.08 718.04 92.05 716.30 91.26 714.56 C 90.46 712.82 89.89 711.08 89.40 708.67 C 88.90 706.25 88.49 703.16 88.32 699.80 C 88.15 696.45 88.22 692.83 88.73 689.44 C 89.25 686.06 90.19 682.93 91.41 679.79 C 92.62 676.65 94.10 673.51 95.51 671.29 C 96.91 669.06 98.24 667.76 99.17 666.87 C 100.10 665.97 100.63 665.49 101.12 665.01 C 101.62 664.52 102.07 664.04 103.50 663.25 M 103.58 682.09 C 104.29 680.80 105.31 679.04 106.56 677.53 C 107.81 676.01 109.29 674.75 110.84 673.97 C 112.39 673.18 114.01 672.87 115.40 673.03 C 116.78 673.18 117.92 673.79 119.01 674.67 C 120.09 675.55 121.11 676.70 121.76 678.35 C 122.41 680.00 122.68 682.14 122.91 684.13 C 123.13 686.13 123.31 687.96 123.12 689.88 C 122.92 691.80 122.35 693.79 121.49 696.10 C 120.63 698.42 119.49 701.06 118.15 703.23 C 116.81 705.39 115.28 707.08 114.01 708.02 C 112.75 708.95 111.75 709.15 110.72 709.41 C 109.68 709.68 108.59 710.03 107.61 710.05 C 106.64 710.07 105.76 709.76 105.01 709.24 C 104.26 708.72 103.63 708.00 102.93 706.91 C 102.24 705.81 101.49 704.36 101.08 702.62 C 100.68 700.87 100.62 698.84 100.56 697.04 C 100.50 695.24 100.44 693.67 100.56 691.99 C 100.68 690.30 100.98 688.50 101.26 687.31 C 101.55 686.13 101.82 685.55 102.15 684.86 C 102.48 684.17 102.87 683.37 103.58 682.09 Z" fill-rule="evenodd"/>
-    <linearGradient id="g-4-O" x1="0" y1="0" x2="0.25" y2="1">
+
+    <linearGradient id="metal-4-O" x1="0" y1="0" x2="0.18" y2="1">
       <stop offset="0" stop-color="#FFFFFF"/>
-      <stop offset="0.3" stop-color="#E8EDF5"/>
-      <stop offset="0.52" stop-color="#AFBACB"/>
-      <stop offset="0.74" stop-color="#F2F5FA"/>
-      <stop offset="1" stop-color="#8E9AAC"/>
+      <stop offset="0.09" stop-color="#F2F6FC"/>
+      <stop offset="0.2" stop-color="#D3DEEC"/>
+      <stop offset="0.32" stop-color="#93A3B9"/>
+      <stop offset="0.43" stop-color="#5A6880"/>
+      <stop offset="0.5" stop-color="#3C4762"/>
+      <stop offset="0.57" stop-color="#8695AC"/>
+      <stop offset="0.68" stop-color="#DCE6F2"/>
+      <stop offset="0.8" stop-color="#FFFFFF"/>
+      <stop offset="0.9" stop-color="#B7C4D6"/>
+      <stop offset="1" stop-color="#6E7B90"/>
     </linearGradient>
-    <linearGradient id="luz-4-O" x1="0" y1="0" x2="0.2" y2="1">
-      <stop offset="0" stop-color="#fff" stop-opacity="0.85"/>
-      <stop offset="0.35" stop-color="#fff" stop-opacity="0.12"/>
-      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+
+    <!-- Bisel: a forma borrada vira um mapa de relevo, e a luz calcula
+         o brilho da aresta em cima dele. E o que da o 3D de verdade. -->
+    <filter id="bisel-4-O" x="-40%" y="-40%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="2.4" result="relevo"/>
+      <feSpecularLighting in="relevo" surfaceScale="4.5" specularConstant="1.25"
+                          specularExponent="22" lighting-color="#FFFFFF" result="luz">
+        <feDistantLight azimuth="228" elevation="62"/>
+      </feSpecularLighting>
+      <feComposite in="luz" in2="SourceAlpha" operator="in" result="luzCortada"/>
+      <feComposite in="SourceGraphic" in2="luzCortada"
+                   operator="arithmetic" k1="0" k2="1" k3="0.92" k4="0"/>
+    </filter>
+
+    <!-- fio de luz correndo na aresta de cima -->
+    <linearGradient id="fio-4-O" x1="0" y1="0" x2="0" y2="0.4">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.95"/>
+      <stop offset="0.5" stop-color="#FFFFFF" stop-opacity="0.25"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
     </linearGradient>
-    <filter id="sombra-4-O" x="-30%" y="-30%" width="180%" height="180%">
-      <feDropShadow dx="3.5" dy="4.9" stdDeviation="2.6" flood-color="#000" flood-opacity="0.55"/>
+
+    <filter id="sombra-4-O" x="-40%" y="-40%" width="200%" height="200%">
+      <feDropShadow dx="5.0" dy="7.2" stdDeviation="3.4"
+                    flood-color="#000" flood-opacity="0.6"/>
     </filter>
   </defs>
+
   <g filter="url(#sombra-4-O)">
-    <use href="#f-4-O" x="7.00" y="7.00" fill="#32363e"/>
-    <use href="#f-4-O" x="6.50" y="6.50" fill="#353942"/>
-    <use href="#f-4-O" x="6.00" y="6.00" fill="#383d46"/>
-    <use href="#f-4-O" x="5.50" y="5.50" fill="#3b404a"/>
-    <use href="#f-4-O" x="5.00" y="5.00" fill="#3f444e"/>
-    <use href="#f-4-O" x="4.50" y="4.50" fill="#424752"/>
-    <use href="#f-4-O" x="4.00" y="4.00" fill="#454b56"/>
-    <use href="#f-4-O" x="3.50" y="3.50" fill="#494f5b"/>
-    <use href="#f-4-O" x="3.00" y="3.00" fill="#4c525f"/>
-    <use href="#f-4-O" x="2.50" y="2.50" fill="#4f5663"/>
-    <use href="#f-4-O" x="2.00" y="2.00" fill="#525967"/>
-    <use href="#f-4-O" x="1.50" y="1.50" fill="#565d6b"/>
-    <use href="#f-4-O" x="1.00" y="1.00" fill="#59606f"/>
-    <use href="#f-4-O" x="0.50" y="0.50" fill="#5c6473"/>
+    <use href="#f-4-O" x="9.00" y="9.00" fill="#32353c"/>
+    <use href="#f-4-O" x="8.59" y="8.59" fill="#353840"/>
+    <use href="#f-4-O" x="8.18" y="8.18" fill="#383c44"/>
+    <use href="#f-4-O" x="7.77" y="7.77" fill="#3b3f48"/>
+    <use href="#f-4-O" x="7.36" y="7.36" fill="#3f434d"/>
+    <use href="#f-4-O" x="6.95" y="6.95" fill="#424751"/>
+    <use href="#f-4-O" x="6.55" y="6.55" fill="#454a55"/>
+    <use href="#f-4-O" x="6.14" y="6.14" fill="#484e59"/>
+    <use href="#f-4-O" x="5.73" y="5.73" fill="#4c525e"/>
+    <use href="#f-4-O" x="5.32" y="5.32" fill="#4f5562"/>
+    <use href="#f-4-O" x="4.91" y="4.91" fill="#525966"/>
+    <use href="#f-4-O" x="4.50" y="4.50" fill="#565d6b"/>
+    <use href="#f-4-O" x="4.09" y="4.09" fill="#59606f"/>
+    <use href="#f-4-O" x="3.68" y="3.68" fill="#5c6473"/>
+    <use href="#f-4-O" x="3.27" y="3.27" fill="#5f6777"/>
+    <use href="#f-4-O" x="2.86" y="2.86" fill="#636b7c"/>
+    <use href="#f-4-O" x="2.45" y="2.45" fill="#666f80"/>
+    <use href="#f-4-O" x="2.05" y="2.05" fill="#697284"/>
+    <use href="#f-4-O" x="1.64" y="1.64" fill="#6c7688"/>
+    <use href="#f-4-O" x="1.23" y="1.23" fill="#707a8d"/>
+    <use href="#f-4-O" x="0.82" y="0.82" fill="#737d91"/>
+    <use href="#f-4-O" x="0.41" y="0.41" fill="#768195"/>
   </g>
-  <use href="#f-4-O" fill="#2A3244" stroke="#2A3244" stroke-width="2.6" stroke-linejoin="round"/>
-  <use href="#f-4-O" fill="url(#g-4-O)"/>
-  <use href="#f-4-O" fill="url(#luz-4-O)"/>
+
+  <!-- contorno escuro, como no desenho original -->
+  <use href="#f-4-O" fill="#1E2534" stroke="#1E2534" stroke-width="3" stroke-linejoin="round"/>
+
+  <!-- a face, com o metal e o bisel iluminado -->
+  <g filter="url(#bisel-4-O)">
+    <use href="#f-4-O" fill="url(#metal-4-O)"/>
+  </g>
+
+  <!-- fio de luz na aresta superior -->
+  <use href="#f-4-O" fill="url(#fio-4-O)"/>
 </svg>
