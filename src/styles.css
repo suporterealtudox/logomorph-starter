@@ -470,22 +470,31 @@ footer .social a:hover,footer .social a:focus-visible{color:var(--gold);border-c
 .palavra{display:inline-block;white-space:nowrap}
 
 /* ---------- abertura: o escudo se montando ----------
-   Cada peça é um pedaço da arte real, posicionado em porcentagem do
-   escudo. Quando todas assentam, o resultado é a marca original. */
+   Palco quadrado, com cada peça posicionada em porcentagem dele. Quando
+   todas assentam, o resultado é a marca original. */
 .abertura{
   position:fixed;inset:0;z-index:200;display:grid;place-items:center;
   padding:1.5rem;
   background:radial-gradient(900px 600px at 50% 45%,#0B1A38,var(--bg-deep) 70%);
   --lado:min(76vh, 90vw, 620px);
 }
-.escudo{position:relative;width:var(--lado);height:var(--lado)}
+.escudo{
+  position:relative;
+  width:var(--lado);height:var(--lado);
+  aspect-ratio:1 / 1;           /* o palco nunca deforma */
+}
 .escudo .base{
   position:absolute;inset:0;width:100%;height:100%;display:block;
   will-change:transform,filter,opacity;
 }
 .escudo .peca{
-  position:absolute;display:block;height:auto;
+  position:absolute;display:block;height:auto;   /* mantém a proporção */
   will-change:transform,filter,opacity;
+}
+/* a arte completa: entra só no fim, garantindo o quadro final exato */
+.escudo .inteira{
+  position:absolute;inset:0;width:100%;height:100%;display:block;
+  opacity:0;pointer-events:none;
 }
 html.carregando{overflow:hidden}
 

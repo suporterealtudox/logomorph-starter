@@ -28,56 +28,61 @@ export function useMotion() {
       const temMouse = matchMedia('(pointer:fine)').matches;
 
       /* ---------- abertura: o escudo se montando ----------
-         As peças são pedaços da arte real. Elas surgem de dentro do
-         escudo, giradas e desfocadas, e vão assentando até a marca
-         ficar inteira. */
+         As peças são pedaços da arte real. Surgem de dentro do escudo,
+         giradas e desfocadas, e vão assentando na coordenada exata.
+         No fim a arte completa entra por cima, no mesmo lugar: é o que
+         garante o último quadro idêntico ao arquivo do designer. */
       document.documentElement.classList.add('carregando');
 
       const letras = gsap.utils.toArray<HTMLElement>('.escudo .letra');
-      const dourada = letras[4]; // o M do meio: assenta por último
+      const dourada = letras[4]; // o M da haste longa: assenta por último
 
       const chegada = gsap.timeline({ defaults: { ease: 'expo.out' } });
 
-      // o escudo chega girando, como um selo sendo prensado
+      // o disco e os aros chegam primeiro, com uma volta suave
       chegada.fromTo('.escudo .base',
-        { opacity: 0, scale: 0.4, rotate: -120, filter: 'blur(14px) brightness(1)' },
-        { opacity: 1, scale: 1, rotate: 0, filter: 'blur(0px) brightness(1)', duration: 1.15 });
+        { opacity: 0, scale: 0.55, rotate: -55, filter: 'blur(12px)' },
+        { opacity: 1, scale: 1, rotate: 0, filter: 'blur(0px)', duration: 1.05 });
 
-      // o monograma cai no lugar
+      // o emblema LM encaixa no alto
       chegada.fromTo('.escudo .monograma',
-        { opacity: 0, yPercent: -60, scale: 0.55, rotate: -160, filter: 'blur(10px) brightness(1)' },
-        { opacity: 1, yPercent: 0, scale: 1, rotate: 0, filter: 'blur(0px) brightness(1)',
-          duration: 0.95, ease: 'back.out(1.5)' }, '-=0.45');
+        { opacity: 0, yPercent: -55, scale: 0.6, rotate: -140, filter: 'blur(9px)' },
+        { opacity: 1, yPercent: 0, scale: 1, rotate: 0, filter: 'blur(0px)',
+          duration: 0.9, ease: 'back.out(1.4)' }, '-=0.45');
 
       if (letras.length && dourada) {
-        // as letras partem do centro do escudo, giradas e desfocadas
+        // cada letra vem de uma direção, girada e desfocada
         letras.forEach((letra, i) => {
           const praEsquerda = i < 4;
           gsap.set(letra, {
-            xPercent: praEsquerda ? gsap.utils.random(120, 320) : gsap.utils.random(-320, -120),
-            yPercent: gsap.utils.random(-120, 140),
+            xPercent: praEsquerda ? gsap.utils.random(130, 330) : gsap.utils.random(-330, -130),
+            yPercent: gsap.utils.random(-130, 150),
             rotate: gsap.utils.random(-140, 140),
             scale: gsap.utils.random(1.5, 2.3),
             opacity: 0,
-            filter: 'blur(12px) brightness(1)',
+            filter: 'blur(12px)',
           });
         });
 
+        // assentam uma após a outra, das pontas para o meio
         chegada.to(letras.filter((l) => l !== dourada), {
           xPercent: 0, yPercent: 0, rotate: 0, scale: 1, opacity: 1,
-          filter: 'blur(0px) brightness(1)',
-          duration: 1.0,
-          stagger: { each: 0.05, from: 'edges' },
-        }, '-=0.5');
+          filter: 'blur(0px)',
+          duration: 0.95,
+          stagger: { each: 0.07, from: 'edges' },
+        }, '-=0.45');
 
+        // o M fecha a palavra
         chegada.to(dourada, {
           xPercent: 0, yPercent: 0, rotate: 0, scale: 1, opacity: 1,
-          filter: 'blur(0px) brightness(1)',
+          filter: 'blur(0px)',
           duration: 0.8, ease: 'back.out(1.7)',
-        }, '-=0.3');
+        }, '-=0.25');
       }
 
-      // a assinatura e o contato fecham o escudo
+      // o registrado, o slogan e os contatos completam o escudo
+      chegada.fromTo('.escudo .registrado',
+        { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.4 }, '-=0.15');
       chegada.fromTo('.escudo .frase',
         { opacity: 0, yPercent: 55 }, { opacity: 1, yPercent: 0, duration: 0.5 }, '-=0.2');
       chegada.fromTo('.escudo .contato',
@@ -91,32 +96,62 @@ export function useMotion() {
       ];
       chegada.to(metal, {
         filter: 'blur(0px) brightness(1.7)',
-        duration: 0.15,
-        ease: 'sine.inOut',
+        duration: 0.15, ease: 'sine.inOut',
         stagger: { each: 0.04, repeat: 1, yoyo: true },
-      }, '-=0.1');
+      }, '-=0.05');
+
+      // a arte completa assume por cima: daqui em diante o que se vê é
+      // exatamente o arquivo original, sem depender do encaixe peça a peça
+      chegada.to('.escudo .inteira', { opacity: 1, duration: 0.28, ease: 'power1.inOut' });
+      chegada.set('.escudo .peca', { opacity: 0 });
+      chegada.set('.escudo .base', { opacity: 0 });
 
       let jaAbriu = false;
 
       function abrirSite() {
         if (jaAbriu) return;
         jaAbriu = true;
-        gsap
-          .timeline({
-            onComplete: () => {
-              document.getElementById('abertura')?.remove();
-              document.documentElement.classList.remove('carregando');
-              ligarMotion();
-            },
-          })
-          .to('.escudo', { scale: 1.14, duration: 0.55, ease: 'power2.in' })
+
+        // a logo montada viaja até o lugar dela no site, em vez de
+        // simplesmente sumir: a marca não "pisca", ela se acomoda
+        const palco = document.querySelector<HTMLElement>('.escudo');
+        const destino = document.querySelector<HTMLElement>('.hero-visual .logo-wrap img');
+
+        const saida = gsap.timeline({
+          onComplete: () => {
+            document.getElementById('abertura')?.remove();
+            document.documentElement.classList.remove('carregando');
+            ligarMotion();
+          },
+        });
+
+        if (palco && destino) {
+          const de = palco.getBoundingClientRect();
+          const para = destino.getBoundingClientRect();
+          // só vale a pena viajar se o destino já estiver na tela
+          if (para.width > 20 && para.top < innerHeight) {
+            saida.to(palco, {
+              x: para.left + para.width / 2 - (de.left + de.width / 2),
+              y: para.top + para.height / 2 - (de.top + de.height / 2),
+              scale: para.width / de.width,
+              duration: 0.85,
+              ease: 'power3.inOut',
+            });
+            saida.to('.abertura', { opacity: 0, duration: 0.4, ease: 'power2.out' }, '-=0.3');
+            return;
+          }
+        }
+
+        saida
+          .to('.escudo', { scale: 1.12, duration: 0.5, ease: 'power2.in' })
           .to('.abertura', { opacity: 0, duration: 0.45, ease: 'power2.inOut' }, '-=0.3');
       }
 
-      const t1 = window.setTimeout(abrirSite, 5200);
+      const t1 = window.setTimeout(abrirSite, 5600);
 
-      // trava: se o navegador congelar o quadro, a animação de saída nunca
-      // termina — passados 4,2s a capa sai de qualquer jeito
+      // trava: se o navegador congelar o quadro, a montagem nunca termina —
+      // passados 6s a capa sai de qualquer jeito e o site aparece.
+      // (a montagem leva ~2,6s e a saída ~1s; 6s dá folga sem prender ninguém)
       const t2 = window.setTimeout(() => {
         const capa = document.getElementById('abertura');
         if (capa) {
@@ -124,7 +159,7 @@ export function useMotion() {
           document.documentElement.classList.remove('carregando');
         }
         ligarMotion();
-      }, 9000);
+      }, 9500);
 
       limpezas.push(() => {
         window.clearTimeout(t1);
