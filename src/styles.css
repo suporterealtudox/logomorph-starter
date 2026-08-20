@@ -409,7 +409,7 @@ header{
 .folio:hover{transform:translateY(-6px);border-color:var(--gold-line);box-shadow:0 24px 50px -18px rgba(0,0,0,.85)}
 .folio:hover img{transform:scale(1.05)}
 @media (max-width:960px){.folio-grid{grid-template-columns:repeat(2,1fr)}}
-@media (max-width:460px){.folio-grid{grid-template-columns:1fr}.folio{aspect-ratio:auto}}
+@media (max-width:460px){.folio-grid{grid-template-columns:1fr}}
 
 /* ---------- processo ---------- */
 .processo{background:linear-gradient(180deg,var(--bg-deep),#071022 55%,var(--bg-deep))}
