@@ -479,7 +479,12 @@ footer .social a:hover,footer .social a:focus-visible{color:var(--gold);border-c
   background:radial-gradient(900px 600px at 50% 45%,#0B1A38,var(--bg-deep) 70%);
   --u:1.55px;
 }
-.montagem{display:grid;justify-items:center;gap:1.4rem}
+.montagem{display:grid;justify-items:center;gap:1.1rem}
+/* o emblema LM, acima do nome, como na marca */
+.montagem .emblema{
+  display:block;width:calc(var(--u) * 150);height:auto;
+  will-change:transform,filter,opacity;
+}
 
 .palavra-letras{
   position:relative;display:flex;align-items:flex-start;
@@ -491,15 +496,6 @@ footer .social a:hover,footer .social a:focus-visible{color:var(--gold);border-c
   display:block;height:auto;flex:0 0 auto;
   margin-left:calc(var(--u) * -26);
   will-change:transform,filter,opacity;
-}
-/* Clarão que varre o metal quando a última letra encaixa.
-   Usa "overlay": em cima do metal claro ele acende, no fundo escuro
-   quase não aparece — senão a faixa vira um retângulo visível. */
-.palavra-letras .clarao{
-  position:absolute;top:0;bottom:0;left:0;width:18%;
-  pointer-events:none;opacity:0;
-  background:linear-gradient(100deg,transparent 0%,rgba(255,255,255,.55) 42%,rgba(255,248,220,.95) 50%,rgba(255,255,255,.55) 58%,transparent 100%);
-  mix-blend-mode:overlay;
 }
 .abertura .legenda{
   font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;

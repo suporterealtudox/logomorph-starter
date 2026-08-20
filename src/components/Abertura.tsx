@@ -1,11 +1,12 @@
-/** A marca se monta letra por letra.
+/** A marca se monta na frente do visitante: primeiro o emblema LM,
+ *  depois o nome, letra por letra.
  *
- *  Cada letra é o vetor original da LogoMorph, tirado do arquivo do
+ *  Tudo aqui é o vetor original da LogoMorph, tirado do arquivo do
  *  designer e vestido de metal com relevo — não é recorte de imagem.
- *  Por ser vetor, fica nítida em qualquer tela e em qualquer tamanho.
+ *  Por ser vetor, fica nítido em qualquer tela e em qualquer tamanho.
  *
- *  As larguras abaixo estão na mesma unidade do desenho: é o que mantém
- *  a proporção entre as letras e o encaixe da palavra. */
+ *  As larguras estão na mesma unidade do desenho: é o que mantém a
+ *  proporção entre as letras e o encaixe da palavra. */
 
 const LETRAS = [
   { arquivo: '1-L.svg', largura: 59.5 },
@@ -23,6 +24,8 @@ export function Abertura() {
   return (
     <div className="abertura" id="abertura" aria-hidden="true">
       <div className="montagem">
+        <img className="emblema" src="/img/letras3d/0-emblema.svg" alt="" />
+
         <div className="palavra-letras">
           {LETRAS.map((l) => (
             <img
@@ -33,8 +36,8 @@ export function Abertura() {
               style={{ width: `calc(var(--u) * ${l.largura})` }}
             />
           ))}
-          <span className="clarao" />
         </div>
+
         <span className="legenda">Transformando ideias em marcas de impacto</span>
       </div>
     </div>

@@ -46,22 +46,30 @@ export function useMotion() {
             rotate: gsap.utils.random(-140, 140),
             scale: gsap.utils.random(1.6, 2.4),
             opacity: 0,
-            filter: 'blur(14px)',
+            filter: 'blur(14px) brightness(1)',
           });
         });
 
         const chegada = gsap.timeline();
+
+        // o emblema chega primeiro: gira, cresce e assenta
+        chegada.fromTo(
+          '.montagem .emblema',
+          { opacity: 0, scale: 0.35, rotate: -180, filter: 'blur(10px) brightness(1)' },
+          { opacity: 1, scale: 1, rotate: 0, filter: 'blur(0px) brightness(1)', duration: 1.1, ease: 'expo.out' },
+        );
 
         // todas assentam, menos a dourada
         chegada.to(
           letras.filter((l) => l !== dourada),
           {
             x: 0, y: 0, rotate: 0, scale: 1, opacity: 1,
-            filter: 'blur(0px)',
+            filter: 'blur(0px) brightness(1)',
             duration: 1.15,
             ease: 'expo.out',
             stagger: { each: 0.055, from: 'edges' },
           },
+          '-=0.55',
         );
 
         // a dourada fecha a palavra, e o clarao varre o metal
@@ -69,18 +77,24 @@ export function useMotion() {
           dourada,
           {
             x: 0, y: 0, rotate: 0, scale: 1, opacity: 1,
-            filter: 'blur(0px)',
+            filter: 'blur(0px) brightness(1)',
             duration: 0.85,
             ease: 'back.out(1.7)',
           },
           '-=0.35',
         );
 
-        chegada.fromTo(
-          '.palavra-letras .clarao',
-          { xPercent: -140, opacity: 0 },
-          { xPercent: 520, opacity: 1, duration: 0.75, ease: 'power2.inOut' },
-          '-=0.2',
+        // a luz varre o metal passando letra por letra — sem faixa por
+        // cima, que apareceria como um retângulo sobre o fundo escuro
+        chegada.to(
+          letras,
+          {
+            filter: 'blur(0px) brightness(1.85)',
+            duration: 0.16,
+            ease: 'sine.inOut',
+            stagger: { each: 0.045, repeat: 1, yoyo: true },
+          },
+          '-=0.15',
         );
 
         chegada.from('.abertura .legenda', { opacity: 0, y: 12, duration: 0.5 }, '-=0.45');
