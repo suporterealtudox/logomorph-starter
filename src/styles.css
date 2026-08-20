@@ -618,3 +618,38 @@ section>.wrap,.hero>.wrap{position:relative;z-index:1}
 .folio{transform-style:preserve-3d}
 @media (max-width:960px){.logo-wrap{width:min(300px,64%)}}
 
+
+/* ---------- ajustes finos para celular ---------- */
+@media (max-width:600px){
+  /* títulos: nada de letra ou acento cortado, nada estourando a lateral */
+  .display{line-height:1.14;letter-spacing:-.01em;hyphens:none}
+  .hero h1{font-size:clamp(2.1rem,10.5vw,3rem)}
+  h2.display{font-size:clamp(1.55rem,7.4vw,2.4rem)}
+  .final .display{font-size:clamp(1.7rem,7.8vw,2.6rem)}
+  .hero-kick{font-size:.8rem;letter-spacing:.1em}
+  .section-lead{font-size:1rem}
+
+  /* números dos preços com folga na base (a vírgula estava encostando) */
+  .price .valor{align-items:baseline;flex-wrap:wrap;margin:1.1rem 0 .2rem}
+  .price .valor b{font-size:2.4rem;line-height:1.18}
+  .price{padding-inline:1.15rem}
+
+  /* letreiro e passos mais compactos */
+  .faixa{padding:.9rem 4vw}
+  .faixa span{font-size:.74rem;letter-spacing:.14em}
+  .step::before{font-size:4rem;top:-1rem;left:-.2rem}
+
+  /* botões ocupam a largura, sem texto espremido */
+  .hero-ctas{gap:.75rem}
+  .hero-ctas .btn{flex:1 1 100%;justify-content:center}
+  .hero-proof{gap:1.2rem}
+  .hero-proof div{flex:1 1 40%}
+
+  /* rodapé centralizado */
+  footer .wrap{justify-content:center;text-align:center}
+  footer .social{margin-inline:auto}
+
+  /* o zap flutuante não pode cobrir botão nenhum */
+  .zap-float{right:.9rem;bottom:.9rem;width:54px;height:54px}
+  .lupa-caixa{max-width:94vw}
+}

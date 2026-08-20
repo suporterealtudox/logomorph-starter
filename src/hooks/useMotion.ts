@@ -311,38 +311,23 @@ export function useMotion() {
           scrollTrigger: { trigger: '.price-grid', start: 'top 82%' },
         });
 
-        /* os valores sobem contando.
-           A contagem só nasce quando a seção aparece: assim o preço certo
-           (que veio do JSX) nunca é trocado por um "0,00" enquanto ninguém
-           chegou lá. Ao terminar, gravamos o valor exato — sem depender de
-           arredondamento de animação. */
+        /* os valores aparecem sempre exatos.
+           A antiga contagem podia congelar no meio e deixar na tela um
+           preço errado (39,66 em vez de 39,99). Agora o número do JSX é o
+           que fica; só damos um destaque rápido quando ele entra na tela. */
         document.querySelectorAll<HTMLElement>('.conta').forEach((el) => {
-          const escrito = el.dataset['valor'] ?? '0';
-          const alvo = parseFloat(escrito.replace(',', '.'));
+          const escrito = el.dataset['valor'];
+          if (escrito) el.textContent = escrito;
 
-          ScrollTrigger.create({
-            trigger: el,
-            start: 'top 86%',
-            once: true,
-            onEnter: () => {
-              const obj = { v: 0 };
-              gsap.to(obj, {
-                v: alvo,
-                duration: 1.3,
-                ease: 'power2.out',
-                onUpdate: () => {
-                  el.textContent = obj.v.toLocaleString('pt-BR', {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
-                  });
-                },
-                onComplete: () => {
-                  el.textContent = escrito;
-                },
-              });
-            },
+          gsap.from(el, {
+            opacity: 0,
+            y: 14,
+            duration: 0.5,
+            ease: 'expo.out',
+            scrollTrigger: { trigger: el, start: 'top 88%', once: true },
           });
         });
+
 
         /* o plano em destaque respira */
         gsap.to('.price.destaque', { y: -8, duration: 2.6, ease: 'sine.inOut', yoyo: true, repeat: -1 });
