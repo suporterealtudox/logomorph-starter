@@ -439,13 +439,14 @@ export function useMotion() {
             }
           });
 
-          /* preço preso em zero é pior que animação travada: conserta na hora */
+          /* trava final: o preço exibido é sempre o do JSX */
           document.querySelectorAll<HTMLElement>('.conta').forEach((el) => {
             const certo = el.dataset['valor'];
-            if (certo && el.textContent === '0,00' && !gsap.isTweening(el)) {
+            if (certo && el.textContent !== certo) {
               el.textContent = certo;
             }
           });
+
         }, 2000);
         limpezas.push(() => window.clearInterval(relogio));
 
