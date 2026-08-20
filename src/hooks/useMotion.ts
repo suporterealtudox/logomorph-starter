@@ -115,7 +115,7 @@ export function useMotion() {
           .from('.hero-kick', { opacity: 0, x: -34, duration: 0.5 }, '-=0.25')
           .from(
             '.hero h1 .char',
-            { opacity: 0, yPercent: 110, rotateX: -55, duration: 0.7, stagger: 0.022 },
+            { opacity: 0, yPercent: 110, duration: 0.7, stagger: 0.022, clearProps: 'transform' },
             '-=0.2',
           )
           .from('.hero p.sub', { opacity: 0, y: 26, duration: 0.55 }, '-=0.4')
@@ -278,9 +278,8 @@ export function useMotion() {
           gsap.from(h.querySelectorAll('.char'), {
             opacity: 0,
             yPercent: 100,
-            rotateX: -60,
-            scale: 0.8,
             duration: 0.6,
+            clearProps: 'transform',
             ease: 'expo.out',
             stagger: 0.018,
             scrollTrigger: { trigger: h, start: 'top 86%' },
@@ -303,9 +302,8 @@ export function useMotion() {
         gsap.from('.price', {
           opacity: 0,
           y: 90,
-          rotateX: -10,
-          transformOrigin: 'center bottom',
           duration: 0.85,
+          clearProps: 'transform',
           ease: 'expo.out',
           stagger: 0.14,
           scrollTrigger: { trigger: '.price-grid', start: 'top 82%' },
@@ -338,7 +336,6 @@ export function useMotion() {
         gsap.from('.folio', {
           opacity: 0,
           y: 70,
-          ...(temMouse ? { rotateY: -18, transformOrigin: 'left center' } : {}),
           duration: 0.8,
           ease: 'expo.out',
           clearProps: 'transform',
