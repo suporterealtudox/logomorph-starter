@@ -332,17 +332,20 @@ export function useMotion() {
         /* o plano em destaque respira */
         gsap.to('.price.destaque', { y: -8, duration: 2.6, ease: 'sine.inOut', yoyo: true, repeat: -1 });
 
-        /* ---------- portfólio: entrada em onda ---------- */
+        /* ---------- portfólio: entrada em onda ----------
+           No celular a entrada é reta (sem giro 3D): girando, o card ficava
+           torto e a legenda parecia cortada durante a rolagem. */
         gsap.from('.folio', {
           opacity: 0,
           y: 70,
-          rotateY: -18,
-          transformOrigin: 'left center',
+          ...(temMouse ? { rotateY: -18, transformOrigin: 'left center' } : {}),
           duration: 0.8,
           ease: 'expo.out',
+          clearProps: 'transform',
           stagger: { each: 0.09, grid: 'auto', from: 'start' },
           scrollTrigger: { trigger: '.folio-grid', start: 'top 84%' },
         });
+
 
         /* tilt 3D seguindo o mouse — por delegação, para continuar valendo
            nos cards que a troca de filtro recria */

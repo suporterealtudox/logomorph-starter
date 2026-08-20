@@ -653,3 +653,9 @@ section>.wrap,.hero>.wrap{position:relative;z-index:1}
   .zap-float{right:.9rem;bottom:.9rem;width:54px;height:54px}
   .lupa-caixa{max-width:94vw}
 }
+
+/* sem perspectiva no toque: card torto dá impressão de imagem cortada */
+@media (hover:none),(max-width:600px){
+  .folio-grid{perspective:none}
+  .folio{transform-style:flat}
+}
