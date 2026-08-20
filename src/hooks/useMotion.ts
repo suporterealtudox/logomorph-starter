@@ -27,131 +27,42 @@ export function useMotion() {
     const ctx = gsap.context(() => {
       const temMouse = matchMedia('(pointer:fine)').matches;
 
-      /* ---------- abertura: o escudo se montando ----------
-         As peças são pedaços da arte real. Surgem de dentro do escudo,
-         giradas e desfocadas, e vão assentando na coordenada exata.
-         No fim a arte completa entra por cima, no mesmo lugar: é o que
-         garante o último quadro idêntico ao arquivo do designer. */
+      /* ---------- abertura: a marca se formando ---------- */
       document.documentElement.classList.add('carregando');
 
-      const letras = gsap.utils.toArray<HTMLElement>('.escudo .letra');
-      const dourada = letras[4]; // o M da haste longa: assenta por último
-
-      const chegada = gsap.timeline({ defaults: { ease: 'expo.out' } });
-
-      // o disco e os aros chegam primeiro, com uma volta suave
-      chegada.fromTo('.escudo .base',
-        { opacity: 0, scale: 0.55, rotate: -55, filter: 'blur(12px)' },
-        { opacity: 1, scale: 1, rotate: 0, filter: 'blur(0px)', duration: 1.05 });
-
-      // o emblema LM encaixa no alto
-      chegada.fromTo('.escudo .monograma',
-        { opacity: 0, yPercent: -55, scale: 0.6, rotate: -140, filter: 'blur(9px)' },
-        { opacity: 1, yPercent: 0, scale: 1, rotate: 0, filter: 'blur(0px)',
-          duration: 0.9, ease: 'back.out(1.4)' }, '-=0.45');
-
-      if (letras.length && dourada) {
-        // cada letra vem de uma direção, girada e desfocada
-        letras.forEach((letra, i) => {
-          const praEsquerda = i < 4;
-          gsap.set(letra, {
-            xPercent: praEsquerda ? gsap.utils.random(130, 330) : gsap.utils.random(-330, -130),
-            yPercent: gsap.utils.random(-130, 150),
-            rotate: gsap.utils.random(-140, 140),
-            scale: gsap.utils.random(1.5, 2.3),
-            opacity: 0,
-            filter: 'blur(12px)',
-          });
-        });
-
-        // assentam uma após a outra, das pontas para o meio
-        chegada.to(letras.filter((l) => l !== dourada), {
-          xPercent: 0, yPercent: 0, rotate: 0, scale: 1, opacity: 1,
-          filter: 'blur(0px)',
-          duration: 0.95,
-          stagger: { each: 0.07, from: 'edges' },
-        }, '-=0.45');
-
-        // o M fecha a palavra
-        chegada.to(dourada, {
-          xPercent: 0, yPercent: 0, rotate: 0, scale: 1, opacity: 1,
-          filter: 'blur(0px)',
-          duration: 0.8, ease: 'back.out(1.7)',
-        }, '-=0.25');
-      }
-
-      // o registrado, o slogan e os contatos completam o escudo
-      chegada.fromTo('.escudo .registrado',
-        { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.4 }, '-=0.15');
-      chegada.fromTo('.escudo .frase',
-        { opacity: 0, yPercent: 55 }, { opacity: 1, yPercent: 0, duration: 0.5 }, '-=0.2');
-      chegada.fromTo('.escudo .contato',
-        { opacity: 0, yPercent: 45, scale: 0.85 },
-        { opacity: 1, yPercent: 0, scale: 1, duration: 0.55 }, '-=0.3');
-
-      // a luz corre pelo metal, peça por peça
-      const metal: HTMLElement[] = [
-        ...gsap.utils.toArray<HTMLElement>('.escudo .monograma'),
-        ...letras,
-      ];
-      chegada.to(metal, {
-        filter: 'blur(0px) brightness(1.7)',
-        duration: 0.15, ease: 'sine.inOut',
-        stagger: { each: 0.04, repeat: 1, yoyo: true },
-      }, '-=0.05');
-
-      // a arte completa assume por cima: daqui em diante o que se vê é
-      // exatamente o arquivo original, sem depender do encaixe peça a peça
-      chegada.to('.escudo .inteira', { opacity: 1, duration: 0.28, ease: 'power1.inOut' });
-      chegada.set('.escudo .peca', { opacity: 0 });
-      chegada.set('.escudo .base', { opacity: 0 });
+      gsap
+        .timeline()
+        .to('.abertura .anel', { rotate: 360, duration: 1.1, ease: 'power2.inOut', repeat: -1 }, 0)
+        .fromTo(
+          '.abertura .selo img',
+          { opacity: 0, scale: 0.55, rotate: -25 },
+          { opacity: 1, scale: 1, rotate: 0, duration: 0.9, ease: 'expo.out' },
+          0.1,
+        )
+        .from('.abertura .legenda', { opacity: 0, y: 10, duration: 0.5 }, 0.5);
 
       let jaAbriu = false;
 
       function abrirSite() {
         if (jaAbriu) return;
         jaAbriu = true;
-
-        // a logo montada viaja até o lugar dela no site, em vez de
-        // simplesmente sumir: a marca não "pisca", ela se acomoda
-        const palco = document.querySelector<HTMLElement>('.escudo');
-        const destino = document.querySelector<HTMLElement>('.hero-visual .logo-wrap img');
-
-        const saida = gsap.timeline({
-          onComplete: () => {
-            document.getElementById('abertura')?.remove();
-            document.documentElement.classList.remove('carregando');
-            ligarMotion();
-          },
-        });
-
-        if (palco && destino) {
-          const de = palco.getBoundingClientRect();
-          const para = destino.getBoundingClientRect();
-          // só vale a pena viajar se o destino já estiver na tela
-          if (para.width > 20 && para.top < innerHeight) {
-            saida.to(palco, {
-              x: para.left + para.width / 2 - (de.left + de.width / 2),
-              y: para.top + para.height / 2 - (de.top + de.height / 2),
-              scale: para.width / de.width,
-              duration: 0.85,
-              ease: 'power3.inOut',
-            });
-            saida.to('.abertura', { opacity: 0, duration: 0.4, ease: 'power2.out' }, '-=0.3');
-            return;
-          }
-        }
-
-        saida
-          .to('.escudo', { scale: 1.12, duration: 0.5, ease: 'power2.in' })
+        gsap
+          .timeline({
+            onComplete: () => {
+              document.getElementById('abertura')?.remove();
+              document.documentElement.classList.remove('carregando');
+              ligarMotion();
+            },
+          })
+          .to('.abertura .anel', { opacity: 0, scale: 1.5, duration: 0.4, ease: 'power2.in' })
+          .to('.abertura .selo', { scale: 1.25, opacity: 0, duration: 0.5, ease: 'power2.in' }, '-=0.25')
           .to('.abertura', { opacity: 0, duration: 0.45, ease: 'power2.inOut' }, '-=0.3');
       }
 
-      const t1 = window.setTimeout(abrirSite, 5600);
+      const t1 = window.setTimeout(abrirSite, document.readyState === 'complete' ? 700 : 2200);
 
-      // trava: se o navegador congelar o quadro, a montagem nunca termina —
-      // passados 6s a capa sai de qualquer jeito e o site aparece.
-      // (a montagem leva ~2,6s e a saída ~1s; 6s dá folga sem prender ninguém)
+      // trava: se o navegador congelar o quadro, a animação de saída nunca
+      // termina — passados 4,2s a capa sai de qualquer jeito
       const t2 = window.setTimeout(() => {
         const capa = document.getElementById('abertura');
         if (capa) {
@@ -159,7 +70,7 @@ export function useMotion() {
           document.documentElement.classList.remove('carregando');
         }
         ligarMotion();
-      }, 9500);
+      }, 4200);
 
       limpezas.push(() => {
         window.clearTimeout(t1);
@@ -226,7 +137,7 @@ export function useMotion() {
 
         const t3 = window.setTimeout(() => {
           if (intro.progress() < 1) intro.progress(1);
-        }, 9000);
+        }, 6000);
         limpezas.push(() => window.clearTimeout(t3));
 
         /* brilho metálico varrendo o emblema, sem parar */

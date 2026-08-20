@@ -469,36 +469,23 @@ footer .social a:hover,footer .social a:focus-visible{color:var(--gold);border-c
 .char{display:inline-block;white-space:pre}
 .palavra{display:inline-block;white-space:nowrap}
 
-/* ---------- abertura: o escudo se montando ----------
-   Palco quadrado, com cada peça posicionada em porcentagem dele. Quando
-   todas assentam, o resultado é a marca original. */
+/* ---------- abertura: a marca se formando ---------- */
 .abertura{
   position:fixed;inset:0;z-index:200;display:grid;place-items:center;
-  padding:1.5rem;
   background:radial-gradient(900px 600px at 50% 45%,#0B1A38,var(--bg-deep) 70%);
-  --lado:min(76vh, 90vw, 620px);
 }
-.escudo{
-  position:relative;
-  width:var(--lado);height:var(--lado);
-  aspect-ratio:1 / 1;           /* o palco nunca deforma */
+.abertura .selo{position:relative;width:min(220px,46vw);aspect-ratio:1}
+.abertura .selo img{width:100%;opacity:0}
+.abertura .anel{
+  position:absolute;inset:-6%;border-radius:50%;
+  border:2px solid transparent;
+  border-top-color:var(--gold);border-right-color:rgba(245,197,66,.35);
 }
-.escudo .base{
-  position:absolute;inset:0;width:100%;height:100%;display:block;
-  will-change:transform,filter,opacity;
-}
-.escudo .peca{
-  position:absolute;display:block;height:auto;   /* mantém a proporção */
-  will-change:transform,filter,opacity;
-}
-/* a arte completa: entra só no fim, garantindo o quadro final exato */
-.escudo .inteira{
-  position:absolute;inset:0;width:100%;height:100%;display:block;
-  opacity:0;pointer-events:none;
+.abertura .legenda{
+  position:absolute;left:50%;transform:translateX(-50%);top:calc(100% + 1.4rem);
+  font-size:.74rem;letter-spacing:.34em;text-transform:uppercase;color:var(--muted);white-space:nowrap;
 }
 html.carregando{overflow:hidden}
-
-@media (max-width:600px){ .abertura{--lado:min(60vh, 92vw, 620px)} }
 
 /* ---------- barra de progresso da leitura ---------- */
 .progresso{
