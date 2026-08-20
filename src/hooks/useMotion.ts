@@ -330,17 +330,20 @@ export function useMotion() {
         /* o plano em destaque respira */
         gsap.to('.price.destaque', { y: -8, duration: 2.6, ease: 'sine.inOut', yoyo: true, repeat: -1 });
 
-        /* ---------- portfólio: entrada uniforme ----------
-           Os cards não mudam de posição durante a entrada. O deslocamento em
-           onda deixava algumas imagens visualmente mais altas que as outras
-           enquanto a animação rodava ou quando o navegador congelava o quadro. */
+        /* ---------- portfólio: entrada em onda ----------
+           O movimento é só transform (não altera o layout), então os cards
+           continuam todos com a mesma altura na grade. */
         gsap.from('.folio', {
           opacity: 0,
-          duration: 0.55,
+          y: 56,
+          scale: 0.96,
+          duration: 0.7,
           ease: 'expo.out',
-          stagger: 0.04,
+          stagger: 0.08,
+          clearProps: 'transform',
           scrollTrigger: { trigger: '.folio-grid', start: 'top 84%' },
         });
+
 
 
         /* tilt 3D seguindo o mouse — por delegação, para continuar valendo
