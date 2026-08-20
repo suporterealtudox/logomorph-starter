@@ -330,16 +330,15 @@ export function useMotion() {
         /* o plano em destaque respira */
         gsap.to('.price.destaque', { y: -8, duration: 2.6, ease: 'sine.inOut', yoyo: true, repeat: -1 });
 
-        /* ---------- portfólio: entrada em onda ----------
-           No celular a entrada é reta (sem giro 3D): girando, o card ficava
-           torto e a legenda parecia cortada durante a rolagem. */
+        /* ---------- portfólio: entrada uniforme ----------
+           Os cards não mudam de posição durante a entrada. O deslocamento em
+           onda deixava algumas imagens visualmente mais altas que as outras
+           enquanto a animação rodava ou quando o navegador congelava o quadro. */
         gsap.from('.folio', {
           opacity: 0,
-          y: 70,
-          duration: 0.8,
+          duration: 0.55,
           ease: 'expo.out',
-          clearProps: 'transform',
-          stagger: { each: 0.09, grid: 'auto', from: 'start' },
+          stagger: 0.04,
           scrollTrigger: { trigger: '.folio-grid', start: 'top 84%' },
         });
 
