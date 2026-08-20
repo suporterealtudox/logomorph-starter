@@ -28,80 +28,69 @@ export function useMotion() {
       const temMouse = matchMedia('(pointer:fine)').matches;
 
       /* ---------- abertura: o escudo se montando ----------
-         Cada peça é uma parte de verdade da marca. Elas chegam na ordem
-         em que a peça seria construída: primeiro o aro, depois o fundo,
-         então o monograma, o nome e por fim a assinatura. */
+         As peças são pedaços da arte real. Elas surgem de dentro do
+         escudo, giradas e desfocadas, e vão assentando até a marca
+         ficar inteira. */
       document.documentElement.classList.add('carregando');
 
-      const letras = gsap.utils.toArray<HTMLElement>('.palavra-letras .letra');
+      const letras = gsap.utils.toArray<HTMLElement>('.escudo .letra');
       const dourada = letras[4]; // o M do meio: assenta por último
 
       const chegada = gsap.timeline({ defaults: { ease: 'expo.out' } });
 
-      // o aro chega girando, como um selo sendo prensado
-      chegada.fromTo('.escudo .aro',
-        { opacity: 0, scale: 1.5, rotate: -95, filter: 'blur(12px) brightness(1)' },
-        { opacity: 1, scale: 1, rotate: 0, filter: 'blur(0px) brightness(1)', duration: 1.0 });
+      // o escudo chega girando, como um selo sendo prensado
+      chegada.fromTo('.escudo .base',
+        { opacity: 0, scale: 0.4, rotate: -120, filter: 'blur(14px) brightness(1)' },
+        { opacity: 1, scale: 1, rotate: 0, filter: 'blur(0px) brightness(1)', duration: 1.15 });
 
-      // o fundo azul abre do centro
-      chegada.fromTo('.escudo .disco',
-        { opacity: 0, scale: 0.45 },
-        { opacity: 1, scale: 1, duration: 0.7 }, '-=0.55');
-
-      chegada.fromTo('.escudo .anel',
-        { opacity: 0, scale: 1.25, rotate: 40 },
-        { opacity: 1, scale: 1, rotate: 0, duration: 0.6 }, '-=0.45');
-
-      // o monograma cai e encaixa
+      // o monograma cai no lugar
       chegada.fromTo('.escudo .monograma',
-        { opacity: 0, y: '-38%', scale: 0.5, rotate: -150, filter: 'blur(9px) brightness(1)' },
-        { opacity: 1, y: '0%', scale: 1, rotate: 0, filter: 'blur(0px) brightness(1)',
-          duration: 0.9, ease: 'back.out(1.4)' }, '-=0.35');
+        { opacity: 0, yPercent: -60, scale: 0.55, rotate: -160, filter: 'blur(10px) brightness(1)' },
+        { opacity: 1, yPercent: 0, scale: 1, rotate: 0, filter: 'blur(0px) brightness(1)',
+          duration: 0.95, ease: 'back.out(1.5)' }, '-=0.45');
 
       if (letras.length && dourada) {
-        // as letras vêm de fora da tela, giradas e desfocadas
+        // as letras partem do centro do escudo, giradas e desfocadas
         letras.forEach((letra, i) => {
-          const daEsquerda = i % 2 === 0;
+          const praEsquerda = i < 4;
           gsap.set(letra, {
-            x: (daEsquerda ? -1 : 1) * gsap.utils.random(320, 700),
-            y: gsap.utils.random(-260, 300),
-            rotate: gsap.utils.random(-150, 150),
-            scale: gsap.utils.random(1.7, 2.6),
+            xPercent: praEsquerda ? gsap.utils.random(120, 320) : gsap.utils.random(-320, -120),
+            yPercent: gsap.utils.random(-120, 140),
+            rotate: gsap.utils.random(-140, 140),
+            scale: gsap.utils.random(1.5, 2.3),
             opacity: 0,
-            filter: 'blur(14px) brightness(1)',
+            filter: 'blur(12px) brightness(1)',
           });
         });
 
         chegada.to(letras.filter((l) => l !== dourada), {
-          x: 0, y: 0, rotate: 0, scale: 1, opacity: 1,
+          xPercent: 0, yPercent: 0, rotate: 0, scale: 1, opacity: 1,
           filter: 'blur(0px) brightness(1)',
-          duration: 1.05,
+          duration: 1.0,
           stagger: { each: 0.05, from: 'edges' },
         }, '-=0.5');
 
-        // a dourada fecha a palavra
         chegada.to(dourada, {
-          x: 0, y: 0, rotate: 0, scale: 1, opacity: 1,
+          xPercent: 0, yPercent: 0, rotate: 0, scale: 1, opacity: 1,
           filter: 'blur(0px) brightness(1)',
           duration: 0.8, ease: 'back.out(1.7)',
         }, '-=0.3');
       }
 
-      // a assinatura e o contato completam o escudo
+      // a assinatura e o contato fecham o escudo
       chegada.fromTo('.escudo .frase',
-        { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.5 }, '-=0.25');
+        { opacity: 0, yPercent: 55 }, { opacity: 1, yPercent: 0, duration: 0.5 }, '-=0.2');
       chegada.fromTo('.escudo .contato',
-        { opacity: 0, y: 22, scale: 0.9 },
-        { opacity: 1, y: 0, scale: 1, duration: 0.55 }, '-=0.3');
+        { opacity: 0, yPercent: 45, scale: 0.85 },
+        { opacity: 1, yPercent: 0, scale: 1, duration: 0.55 }, '-=0.3');
 
-      // a luz corre pelo metal, peça por peça, fechando a montagem
+      // a luz corre pelo metal, peça por peça
       const metal: HTMLElement[] = [
-        ...gsap.utils.toArray<HTMLElement>('.escudo .aro'),
         ...gsap.utils.toArray<HTMLElement>('.escudo .monograma'),
         ...letras,
       ];
       chegada.to(metal, {
-        filter: 'blur(0px) brightness(1.8)',
+        filter: 'blur(0px) brightness(1.7)',
         duration: 0.15,
         ease: 'sine.inOut',
         stagger: { each: 0.04, repeat: 1, yoyo: true },

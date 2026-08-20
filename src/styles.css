@@ -470,54 +470,26 @@ footer .social a:hover,footer .social a:focus-visible{color:var(--gold);border-c
 .palavra{display:inline-block;white-space:nowrap}
 
 /* ---------- abertura: o escudo se montando ----------
-   O escudo tem 620x620 no desenho. Todas as peças são posicionadas em
-   porcentagem dele, então a montagem inteira acompanha o tamanho da
-   tela sem nada sair do lugar. --lado manda no tamanho. */
+   Cada peça é um pedaço da arte real, posicionado em porcentagem do
+   escudo. Quando todas assentam, o resultado é a marca original. */
 .abertura{
   position:fixed;inset:0;z-index:200;display:grid;place-items:center;
   padding:1.5rem;
   background:radial-gradient(900px 600px at 50% 45%,#0B1A38,var(--bg-deep) 70%);
-  --lado:min(74vh, 88vw, 620px);
-  --u:calc(var(--lado) / 620 * 1.12);
+  --lado:min(76vh, 90vw, 620px);
 }
-.escudo{
-  position:relative;width:var(--lado);height:var(--lado);
+.escudo{position:relative;width:var(--lado);height:var(--lado)}
+.escudo .base{
+  position:absolute;inset:0;width:100%;height:100%;display:block;
+  will-change:transform,filter,opacity;
 }
 .escudo .peca{
-  position:absolute;display:block;
+  position:absolute;display:block;height:auto;
   will-change:transform,filter,opacity;
-}
-/* as três camadas de metal ocupam o escudo inteiro */
-.escudo .aro,.escudo .disco,.escudo .anel{inset:0;width:100%;height:100%}
-
-.escudo .monograma{
-  left:50%;top:13%;width:33%;
-  transform:translateX(-50%);
-}
-.palavra-letras{
-  position:absolute;left:50%;top:53%;
-  display:flex;align-items:flex-start;
-  transform:translateX(-50%);
-  margin-left:calc(var(--u) * 26);
-}
-.palavra-letras .letra{
-  display:block;height:auto;flex:0 0 auto;
-  margin-left:calc(var(--u) * -26);
-  will-change:transform,filter,opacity;
-}
-.escudo .frase{
-  left:50%;top:70.5%;width:74%;
-  transform:translateX(-50%);
-}
-.escudo .contato{
-  left:50%;top:77%;width:60%;
-  transform:translateX(-50%);
 }
 html.carregando{overflow:hidden}
 
-@media (max-width:600px){
-  .abertura{--lado:min(58vh, 92vw, 620px)}
-}
+@media (max-width:600px){ .abertura{--lado:min(60vh, 92vw, 620px)} }
 
 /* ---------- barra de progresso da leitura ---------- */
 .progresso{
