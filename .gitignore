@@ -35,3 +35,6 @@ dist-ssr
 .output/
 .wrangler/
 package-lock.json
+
+# build da Vercel
+.vercel/
